@@ -24,6 +24,10 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+	'clientes',
+	'inventario',
+	'facturas',
+	'south',
 )
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -44,10 +48,15 @@ WSGI_APPLICATION = 'pulpe.wsgi.application'
 # https://docs.djangoproject.com/en/1.6/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    }
+
+'default': {
+            'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+            'NAME': 'csdfs_db',
+            'USER': 'postgres',
+            'PASSWORD': 'admin',
+            'HOST': 'localhost',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+            'PORT': '5432',                      # Set to empty string for default.
+        }
 }
 
 # Internationalization

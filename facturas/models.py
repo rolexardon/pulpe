@@ -1,6 +1,6 @@
 from django.db import models
-from cliente import clientes
-from inventario import producto
+from clientes.models import cliente
+from inventario.models import producto
 
 STATUS_CHOICES = (
     (1, 'PENDIENTE'),
@@ -8,7 +8,7 @@ STATUS_CHOICES = (
 )
 
 class factura(models.Model):
-	cliente = models.ForeignKey(clientes)
+	cliente = models.ForeignKey(cliente)
 	estado = models.IntegerField(choices=STATUS_CHOICES,default=1,null=False)
 	fecha_apertura = models.DateField(auto_now_add=True, null=False)
 	fecha_cierra = models.DateField(blank = True, null=True)

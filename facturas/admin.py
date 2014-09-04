@@ -1,3 +1,4 @@
 from django.contrib import admin
+from facturas.models import factura,producto_factura
 
-# Register your models here.
+admin.site.register(factura)
