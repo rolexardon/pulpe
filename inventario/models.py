@@ -3,6 +3,7 @@ from django.db import models
 class producto(models.Model):
 	nombre = models.CharField(max_length=250,null=False)
 	marca = models.CharField(max_length=150,null=False)
+	imagen = models.ImageField(upload_to = 'resoruces/imgs/productos/', default = 'resoruces/imgs/productos/none.jpg')
 	detalles = models.CharField(max_length=500,null=False)
 	proveedor = models.CharField(max_length=250,null=False)
 	costo = models.DecimalField(max_digits=6, decimal_places=2,null=False)
@@ -12,7 +13,7 @@ class producto(models.Model):
 		return '%s' % (self.nombre) 
 	
 class disponibilidad(models.Model):
-	producto = models.ForeignKey(producto)
+	producto = models.ForeignKey(producto, unique=True)
 	cantidad = models.IntegerField(null=False)
 	
 	def __unicode__(self):
