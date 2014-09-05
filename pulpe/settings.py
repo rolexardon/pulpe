@@ -39,6 +39,7 @@ MIDDLEWARE_CLASSES = (
 )
 TEMPLATE_DIRS = (
 	os.path.join(SITE_ROOT, 'templates'),
+	os.path.join(BASE_DIR, 'inventario/templates'),
 )
 
 ROOT_URLCONF = 'pulpe.urls'
