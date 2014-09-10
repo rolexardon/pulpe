@@ -1,13 +1,23 @@
 from django.db import models
 
+
+CATEGORIAS = (
+    ('S', 'Salados'),
+    ('D', 'Dulces'),
+    ('R', 'Refrescos'),
+    ('M', 'Medicamentos'),
+	('O', 'Otros'),
+)
+
 class producto(models.Model):
 	nombre = models.CharField(max_length=250,null=False)
 	marca = models.CharField(max_length=150,null=False)
-	imagen = models.ImageField(upload_to = 'resources/imgs/productos/')
+	imagen = models.ImageField(upload_to = 'resources/imgs/productos/',blank=True,null=True)
 	detalles = models.CharField(max_length=500,null=False)
 	proveedor = models.CharField(max_length=250,null=False)
 	costo = models.DecimalField(max_digits=6, decimal_places=2,null=False)
 	precio = models.DecimalField(max_digits=6, decimal_places=2,null=False)
+	categoria = models.CharField(max_length=2,choices=CATEGORIAS,null=False)
 	
 	def __unicode__(self):
 		return '%s' % (self.nombre) 
