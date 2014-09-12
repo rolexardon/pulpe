@@ -1,10 +1,10 @@
 from django.db import models
 
-
 CATEGORIAS = (
     ('S', 'Salados'),
     ('D', 'Dulces'),
     ('R', 'Refrescos'),
+	('C', 'Congelados'),
     ('M', 'Medicamentos'),
 	('O', 'Otros'),
 )
@@ -14,14 +14,45 @@ class producto(models.Model):
 	marca = models.CharField(max_length=150,null=False)
 	imagen = models.ImageField(upload_to = 'resources/imgs/productos/',blank=True,null=True)
 	detalles = models.CharField(max_length=500,null=False)
-	proveedor = models.CharField(max_length=250,null=False)
-	costo = models.DecimalField(max_digits=6, decimal_places=2,null=False)
-	precio = models.DecimalField(max_digits=6, decimal_places=2,null=False)
 	categoria = models.CharField(max_length=2,choices=CATEGORIAS,null=False)
 	
 	def __unicode__(self):
 		return '%s' % (self.nombre) 
+
+class proveedor(models.Model):
+	nombre = models.CharField(max_length=250,null=False)
+	direccion = models.CharField(max_length=500,null=False)
 	
+	def __unicode__(self):
+		return '%s' % (self.nombre) 
+	
+class producto_costo(models.Model):
+	producto = models.ForeignKey(producto)
+	proveedor = models.ForeignKey(proveedor)
+	costo = models.DecimalField(max_digits=6, decimal_places=2,null=False)
+	activo = models.BooleanField(null=False,default=True)
+	fecha_ingreso = models.DateField(null=False)
+	fecha_debaja = models.DateField(blank = True,null=True)
+	
+	class Meta:
+		unique_together = ('producto', 'proveedor','costo',)
+		
+	def __unicode__(self):
+		return '[%s] %s | %s' % (self.activo, self.producto.nombre, self.costo) 
+	
+class producto_precio(models.Model):
+	producto = models.ForeignKey(producto)
+	precio = models.DecimalField(max_digits=6, decimal_places=2,null=False)
+	activo = models.BooleanField(null=False,default=True)
+	fecha_ingreso = models.DateField(null=False)
+	fecha_debaja = models.DateField(blank = True,null=True)
+	
+	class Meta:
+		unique_together = ('producto', 'precio',)
+	
+	def __unicode__(self):
+		return '[Activo: %s] %s | %s' % (self.activo, self.producto.nombre, self.precio) 
+		
 class disponibilidad(models.Model):
 	producto = models.ForeignKey(producto, unique=True)
 	cantidad = models.IntegerField(null=False)
@@ -31,26 +62,33 @@ class disponibilidad(models.Model):
 	
 class compra(models.Model):
 	fecha = models.DateField(null=False)
-	total_compra = models.DecimalField(max_digits=6, decimal_places=2,null=False)
+	total_compra = models.DecimalField(max_digits=6, decimal_places=2,null=False, default = 0.0)
 	
 	def __unicode__(self):
 		return '%s' % (self.fecha) 
 	
 class producto_compra(models.Model):
 	compra = models.ForeignKey(compra)
-	producto = models.ForeignKey(producto)
+	producto_costo = models.ForeignKey(producto_costo)
 	cantidad = models.IntegerField(null=False)
-	costo = models.DecimalField(max_digits=6, decimal_places=2,null=False)
 	
 	def __unicode__(self):
 		return '[%s] %s' % (self.compra.fecha, self.producto.nombre)
 		
 	def save(self, *args, **kwargs):
-		producto = self.producto
+		compra = self.compra
+		producto_costo = self.producto_costo
 		cantidad = self.cantidad
 		
-		d = disponibilidad(producto=producto,cantidad=cantidad)
+		d = disponibilidad(producto=producto_costo.producto,cantidad=cantidad)
 		d.save()
+		
+		total_actual = compra.total_compra
+		total_producto_compra = producto_costo.costo * cantidad
+		total = total_actual + total_producto_compra
+		
+		compra.total_compra = total
+		compra.save()
 		
 		super(producto_compra, self).save(*args, **kwargs)
 	
@@ -60,3 +98,6 @@ class producto_abastecimiento(models.Model):
 	
 	def __unicode__(self):
 		return '%s' % (self.producto.nombre)
+		
+
+	
