@@ -1,4 +1,5 @@
 from django.db import models
+from decimal import *
 
 CATEGORIAS = (
     ('S', 'Salados'),
@@ -38,7 +39,7 @@ class producto_costo(models.Model):
 		unique_together = ('producto', 'proveedor','costo',)
 		
 	def __unicode__(self):
-		return '[%s] %s | %s' % (self.activo, self.producto.nombre, self.costo) 
+		return '[%s] %s | %s (%s)' % (self.activo, self.producto.nombre, self.costo,self.proveedor.nombre) 
 	
 class producto_precio(models.Model):
 	producto = models.ForeignKey(producto)
@@ -58,14 +59,14 @@ class disponibilidad(models.Model):
 	cantidad = models.IntegerField(null=False)
 	
 	def __unicode__(self):
-		return '%s' % (self.producto.nombre) 
+		return '%s(%s)' % (self.producto.nombre,self.cantidad) 
 	
 class compra(models.Model):
 	fecha = models.DateField(null=False)
 	total_compra = models.DecimalField(max_digits=6, decimal_places=2,null=False, default = 0.0)
 	
 	def __unicode__(self):
-		return '%s' % (self.fecha) 
+		return '%s(%s)' % (self.fecha,self.total_compra) 
 	
 class producto_compra(models.Model):
 	compra = models.ForeignKey(compra)
@@ -73,19 +74,35 @@ class producto_compra(models.Model):
 	cantidad = models.IntegerField(null=False)
 	
 	def __unicode__(self):
-		return '[%s] %s' % (self.compra.fecha, self.producto.nombre)
+		return '[%s] %s' % (self.compra.fecha, self.producto_costo.producto.nombre)
+		
+	'''
+	def delete(self, *args, **kwargs):
+		d = disponibilidad.objects.filter(producto=producto_costo.producto)
+		if d:
+			d=d[0]
+			d.cantidad = d.cantidad - cantidad
+
+        super(producto_compra, self).delete(*args, **kwargs)
+	'''
+
 		
 	def save(self, *args, **kwargs):
 		compra = self.compra
 		producto_costo = self.producto_costo
 		cantidad = self.cantidad
 		
-		d = disponibilidad(producto=producto_costo.producto,cantidad=cantidad)
+		d = disponibilidad.objects.filter(producto=producto_costo.producto)
+		if d:
+			d=d[0]
+			d.cantidad = d.cantidad + cantidad
+		else:
+			d= disponibilidad(producto=producto_costo.producto,cantidad=cantidad)
 		d.save()
 		
 		total_actual = compra.total_compra
 		total_producto_compra = producto_costo.costo * cantidad
-		total = total_actual + total_producto_compra
+		total = Decimal(str(total_actual)) + total_producto_compra
 		
 		compra.total_compra = total
 		compra.save()

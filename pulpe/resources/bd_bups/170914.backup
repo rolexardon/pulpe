@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.3.5
 -- Dumped by pg_dump version 9.3.5
--- Started on 2014-09-11 18:51:58
+-- Started on 2014-09-17 17:29:09
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -420,7 +420,10 @@ CREATE TABLE facturas_factura (
     cliente_id integer NOT NULL,
     estado integer NOT NULL,
     fecha_apertura date NOT NULL,
-    fecha_cierra date
+    total_factura numeric(6,2) NOT NULL,
+    total_abonado numeric(6,2) NOT NULL,
+    total_pendiente numeric(6,2) NOT NULL,
+    fecha_cierre date
 );
 
 
@@ -458,10 +461,9 @@ ALTER SEQUENCE facturas_factura_id_seq OWNED BY facturas_factura.id;
 CREATE TABLE facturas_producto_factura (
     id integer NOT NULL,
     factura_id integer NOT NULL,
-    producto_id integer NOT NULL,
-    precio_actual numeric(6,2) NOT NULL,
     cantidad integer NOT NULL,
-    subtotal numeric(6,2) NOT NULL
+    subtotal numeric(6,2) NOT NULL,
+    producto_precio_id integer NOT NULL
 );
 
 
@@ -1123,7 +1125,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 54, true);
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$12000$uwcYlOJJYqAy$yWU20/79j6hsFLkiqmpA1gqt0YQAkCLpU84ODjzTMQQ=	2014-09-03 16:42:01.715-06	t	rardon			rolando_ardon299@hotmail.com	t	t	2014-09-03 16:41:27.544-06
+1	pbkdf2_sha256$12000$uwcYlOJJYqAy$yWU20/79j6hsFLkiqmpA1gqt0YQAkCLpU84ODjzTMQQ=	2014-09-17 17:11:15.348-06	t	rardon			rolando_ardon299@hotmail.com	t	t	2014-09-03 16:41:27.544-06
 \.
 
 
@@ -1270,6 +1272,13 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 68	2014-09-11 11:39:28.359-06	1	18	11	[Activo: True]Rice Krispies Treats | 9.00	1	
 69	2014-09-11 11:39:38.966-06	1	18	12	[Activo: True]Yogurt Yoplait | 10.00	1	
 70	2014-09-11 11:39:50.178-06	1	18	13	[Activo: True]Nieve de Fruta | 5.00	1	
+71	2014-09-17 09:25:11.158-06	1	12	2	2014-09-02	1	
+72	2014-09-17 09:33:49.658-06	1	12	3	2014-09-09	1	
+73	2014-09-17 09:37:37.217-06	1	12	4	2014-09-10	1	
+74	2014-09-17 09:45:34.032-06	1	12	7	2014-09-11	1	
+75	2014-09-17 17:11:47.028-06	1	12	8	2014-09-17(136.80)	1	
+76	2014-09-17 17:13:40.538-06	1	12	9	2014-09-17(136.80)	1	
+77	2014-09-17 17:14:49.994-06	1	12	9	2014-09-17(136.80)	3	
 \.
 
 
@@ -1279,7 +1288,7 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 70, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 77, true);
 
 
 --
@@ -1327,6 +1336,7 @@ SELECT pg_catalog.setval('django_content_type_id_seq', 18, true);
 
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
 upuw6vtmlwltv17jahfk35wiq3mod54d	NjQxZmQwZDY1YjdkOWUxNWVlNTVhOTQ2M2ViYjYyMmY1MzUwMGI0ZDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-09-17 16:42:01.718-06
+litosy5frlo3dtmvclycm4fo7xr2e9rj	NjQxZmQwZDY1YjdkOWUxNWVlNTVhOTQ2M2ViYjYyMmY1MzUwMGI0ZDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-10-01 17:11:15.46-06
 \.
 
 
@@ -1336,7 +1346,7 @@ upuw6vtmlwltv17jahfk35wiq3mod54d	NjQxZmQwZDY1YjdkOWUxNWVlNTVhOTQ2M2ViYjYyMmY1MzU
 -- Data for Name: facturas_factura; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY facturas_factura (id, cliente_id, estado, fecha_apertura, fecha_cierra) FROM stdin;
+COPY facturas_factura (id, cliente_id, estado, fecha_apertura, total_factura, total_abonado, total_pendiente, fecha_cierre) FROM stdin;
 \.
 
 
@@ -1355,7 +1365,7 @@ SELECT pg_catalog.setval('facturas_factura_id_seq', 1, false);
 -- Data for Name: facturas_producto_factura; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY facturas_producto_factura (id, factura_id, producto_id, precio_actual, cantidad, subtotal) FROM stdin;
+COPY facturas_producto_factura (id, factura_id, cantidad, subtotal, producto_precio_id) FROM stdin;
 \.
 
 
@@ -1375,6 +1385,11 @@ SELECT pg_catalog.setval('facturas_producto_factura_id_seq', 1, false);
 --
 
 COPY inventario_compra (id, fecha, total_compra) FROM stdin;
+2	2014-09-02	541.50
+3	2014-09-09	687.00
+4	2014-09-10	242.80
+7	2014-09-11	734.40
+8	2014-09-17	136.80
 \.
 
 
@@ -1384,7 +1399,7 @@ COPY inventario_compra (id, fecha, total_compra) FROM stdin;
 -- Name: inventario_compra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_compra_id_seq', 1, false);
+SELECT pg_catalog.setval('inventario_compra_id_seq', 9, true);
 
 
 --
@@ -1394,6 +1409,19 @@ SELECT pg_catalog.setval('inventario_compra_id_seq', 1, false);
 --
 
 COPY inventario_disponibilidad (id, producto_id, cantidad) FROM stdin;
+2	1	50
+3	2	35
+5	4	24
+6	5	36
+7	6	50
+8	7	28
+9	9	28
+10	8	20
+14	13	48
+15	12	8
+16	11	40
+17	10	24
+4	3	48
 \.
 
 
@@ -1403,7 +1431,7 @@ COPY inventario_disponibilidad (id, producto_id, cantidad) FROM stdin;
 -- Name: inventario_disponibilidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_disponibilidad_id_seq', 1, false);
+SELECT pg_catalog.setval('inventario_disponibilidad_id_seq', 17, true);
 
 
 --
@@ -1455,6 +1483,21 @@ SELECT pg_catalog.setval('inventario_producto_abastecimiento_id_seq', 1, false);
 --
 
 COPY inventario_producto_compra (id, compra_id, producto_costo_id, cantidad) FROM stdin;
+1	2	1	50
+2	2	2	35
+3	3	3	12
+4	3	4	24
+5	3	5	36
+6	3	6	50
+7	4	7	28
+8	4	9	28
+9	4	8	20
+12	7	13	48
+13	7	3	12
+14	7	12	8
+15	7	11	40
+16	7	10	24
+17	8	3	12
 \.
 
 
@@ -1464,7 +1507,7 @@ COPY inventario_producto_compra (id, compra_id, producto_costo_id, cantidad) FRO
 -- Name: inventario_producto_compra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_producto_compra_id_seq', 1, false);
+SELECT pg_catalog.setval('inventario_producto_compra_id_seq', 18, true);
 
 
 --
@@ -1569,6 +1612,8 @@ SELECT pg_catalog.setval('inventario_proveedor_id_seq', 2, true);
 
 COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
 6	inventario	0001_initial	2014-09-11 09:42:49.852-06
+7	facturas	0001_initial	2014-09-17 09:52:04.805-06
+8	facturas	0002_auto__del_field_factura_fecha_cierra__add_field_factura_total_factura_	2014-09-17 10:01:17.808-06
 \.
 
 
@@ -1578,7 +1623,7 @@ COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
 -- Name: south_migrationhistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('south_migrationhistory_id_seq', 6, true);
+SELECT pg_catalog.setval('south_migrationhistory_id_seq', 8, true);
 
 
 --
@@ -1998,11 +2043,11 @@ CREATE INDEX facturas_producto_factura_factura_id ON facturas_producto_factura U
 
 
 --
--- TOC entry 2054 (class 1259 OID 24890)
--- Name: facturas_producto_factura_producto_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+-- TOC entry 2054 (class 1259 OID 24927)
+-- Name: facturas_producto_factura_producto_precio_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
-CREATE INDEX facturas_producto_factura_producto_id ON facturas_producto_factura USING btree (producto_id);
+CREATE INDEX facturas_producto_factura_producto_precio_id ON facturas_producto_factura USING btree (producto_precio_id);
 
 
 --
@@ -2117,15 +2162,6 @@ ALTER TABLE ONLY facturas_producto_factura
 
 
 --
--- TOC entry 2073 (class 2606 OID 24878)
--- Name: facturas_producto_factura_producto_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
---
-
-ALTER TABLE ONLY facturas_producto_factura
-    ADD CONSTRAINT facturas_producto_factura_producto_id_fkey FOREIGN KEY (producto_id) REFERENCES inventario_producto(id) DEFERRABLE INITIALLY DEFERRED;
-
-
---
 -- TOC entry 2059 (class 2606 OID 16441)
 -- Name: group_id_refs_id_f4b32aac; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
@@ -2198,6 +2234,15 @@ ALTER TABLE ONLY inventario_producto_precio
 
 
 --
+-- TOC entry 2073 (class 2606 OID 24922)
+-- Name: producto_precio_id_refs_id_7c3927f0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY facturas_producto_factura
+    ADD CONSTRAINT producto_precio_id_refs_id_7c3927f0 FOREIGN KEY (producto_precio_id) REFERENCES inventario_producto_precio(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
 -- TOC entry 2061 (class 2606 OID 16491)
 -- Name: user_id_refs_id_40c41112; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
@@ -2236,7 +2281,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2014-09-11 18:52:01
+-- Completed on 2014-09-17 17:29:11
 
 --
 -- PostgreSQL database dump complete
