@@ -16,6 +16,19 @@ class ComprasAdmin(admin.ModelAdmin):
 		if obj: # editing an existing object
 			return self.readonly_fields + ('total_compra',)
 		return self.readonly_fields
+		
+class PCosto_Admin(admin.ModelAdmin):
+	model = producto_costo
+	list_filter = ('activo',)
+	
+	search_fields = ['producto__nombre']
+
+class PPrecio_Admin(admin.ModelAdmin):
+	model = producto_precio
+	list_filter = ('activo',)
+	
+	search_fields = ['producto__nombre']
+
 		   
 admin.site.register(producto)
 admin.site.register(disponibilidad)
@@ -23,6 +36,6 @@ admin.site.register(compra,ComprasAdmin)
 #admin.site.register(producto_compra)
 admin.site.register(producto_abastecimiento)
 admin.site.register(proveedor)
-admin.site.register(producto_costo)
-admin.site.register(producto_precio)
+admin.site.register(producto_costo,PCosto_Admin)
+admin.site.register(producto_precio,PPrecio_Admin)
 
