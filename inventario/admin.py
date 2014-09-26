@@ -11,11 +11,12 @@ class ComprasAdmin(admin.ModelAdmin):
 	inlines = [
 		Producto_CompraInline,
 		]
-		
+	"""	
 	def get_readonly_fields(self, request, obj=None):
 		if obj: # editing an existing object
 			return self.readonly_fields + ('total_compra',)
 		return self.readonly_fields
+	"""
 		
 class PCosto_Admin(admin.ModelAdmin):
 	model = producto_costo

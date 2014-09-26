@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.3.5
 -- Dumped by pg_dump version 9.3.5
--- Started on 2014-09-17 17:29:09
+-- Started on 2014-09-25 18:49:02
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -14,7 +14,7 @@ SET check_function_bodies = false;
 SET client_min_messages = warning;
 
 --
--- TOC entry 211 (class 3079 OID 11750)
+-- TOC entry 219 (class 3079 OID 11750)
 -- Name: plpgsql; Type: EXTENSION; Schema: -; Owner: 
 --
 
@@ -22,8 +22,8 @@ CREATE EXTENSION IF NOT EXISTS plpgsql WITH SCHEMA pg_catalog;
 
 
 --
--- TOC entry 2229 (class 0 OID 0)
--- Dependencies: 211
+-- TOC entry 2282 (class 0 OID 0)
+-- Dependencies: 219
 -- Name: EXTENSION plpgsql; Type: COMMENT; Schema: -; Owner: 
 --
 
@@ -65,7 +65,7 @@ CREATE SEQUENCE auth_group_id_seq
 ALTER TABLE public.auth_group_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2230 (class 0 OID 0)
+-- TOC entry 2283 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: auth_group_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -103,7 +103,7 @@ CREATE SEQUENCE auth_group_permissions_id_seq
 ALTER TABLE public.auth_group_permissions_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2231 (class 0 OID 0)
+-- TOC entry 2284 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: auth_group_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -142,7 +142,7 @@ CREATE SEQUENCE auth_permission_id_seq
 ALTER TABLE public.auth_permission_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2232 (class 0 OID 0)
+-- TOC entry 2285 (class 0 OID 0)
 -- Dependencies: 172
 -- Name: auth_permission_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -202,7 +202,7 @@ CREATE SEQUENCE auth_user_groups_id_seq
 ALTER TABLE public.auth_user_groups_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2233 (class 0 OID 0)
+-- TOC entry 2286 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: auth_user_groups_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -226,7 +226,7 @@ CREATE SEQUENCE auth_user_id_seq
 ALTER TABLE public.auth_user_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2234 (class 0 OID 0)
+-- TOC entry 2287 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: auth_user_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -264,7 +264,7 @@ CREATE SEQUENCE auth_user_user_permissions_id_seq
 ALTER TABLE public.auth_user_user_permissions_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2235 (class 0 OID 0)
+-- TOC entry 2288 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -280,8 +280,6 @@ ALTER SEQUENCE auth_user_user_permissions_id_seq OWNED BY auth_user_user_permiss
 CREATE TABLE clientes_cliente (
     id integer NOT NULL,
     nombre character varying(250) NOT NULL,
-    apellido character varying(250) NOT NULL,
-    cargo character varying(150) NOT NULL,
     celular character varying(8) NOT NULL,
     correo character varying(70) NOT NULL
 );
@@ -305,12 +303,50 @@ CREATE SEQUENCE clientes_cliente_id_seq
 ALTER TABLE public.clientes_cliente_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2236 (class 0 OID 0)
+-- TOC entry 2289 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: clientes_cliente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE clientes_cliente_id_seq OWNED BY clientes_cliente.id;
+
+
+--
+-- TOC entry 218 (class 1259 OID 33231)
+-- Name: clientes_saldo_cliente; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE clientes_saldo_cliente (
+    id integer NOT NULL,
+    cliente_id integer NOT NULL,
+    saldo numeric(6,2) NOT NULL
+);
+
+
+ALTER TABLE public.clientes_saldo_cliente OWNER TO postgres;
+
+--
+-- TOC entry 217 (class 1259 OID 33229)
+-- Name: clientes_saldo_cliente_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE clientes_saldo_cliente_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.clientes_saldo_cliente_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2290 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: clientes_saldo_cliente_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE clientes_saldo_cliente_id_seq OWNED BY clientes_saldo_cliente.id;
 
 
 --
@@ -349,7 +385,7 @@ CREATE SEQUENCE django_admin_log_id_seq
 ALTER TABLE public.django_admin_log_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2237 (class 0 OID 0)
+-- TOC entry 2291 (class 0 OID 0)
 -- Dependencies: 170
 -- Name: django_admin_log_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -388,7 +424,7 @@ CREATE SEQUENCE django_content_type_id_seq
 ALTER TABLE public.django_content_type_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2238 (class 0 OID 0)
+-- TOC entry 2292 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: django_content_type_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -411,6 +447,83 @@ CREATE TABLE django_session (
 ALTER TABLE public.django_session OWNER TO postgres;
 
 --
+-- TOC entry 216 (class 1259 OID 33181)
+-- Name: facturas_abono_factura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE facturas_abono_factura (
+    id integer NOT NULL,
+    factura_id integer NOT NULL,
+    abono numeric(6,2) NOT NULL,
+    fecha_cierre date NOT NULL
+);
+
+
+ALTER TABLE public.facturas_abono_factura OWNER TO postgres;
+
+--
+-- TOC entry 215 (class 1259 OID 33179)
+-- Name: facturas_abono_factura_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE facturas_abono_factura_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.facturas_abono_factura_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2293 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: facturas_abono_factura_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE facturas_abono_factura_id_seq OWNED BY facturas_abono_factura.id;
+
+
+--
+-- TOC entry 212 (class 1259 OID 33165)
+-- Name: facturas_descuento; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE facturas_descuento (
+    id integer NOT NULL,
+    identificador character varying(4) NOT NULL,
+    valor_decimal numeric(6,2) NOT NULL
+);
+
+
+ALTER TABLE public.facturas_descuento OWNER TO postgres;
+
+--
+-- TOC entry 211 (class 1259 OID 33163)
+-- Name: facturas_descuento_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE facturas_descuento_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.facturas_descuento_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2294 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: facturas_descuento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE facturas_descuento_id_seq OWNED BY facturas_descuento.id;
+
+
+--
 -- TOC entry 190 (class 1259 OID 16569)
 -- Name: facturas_factura; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
 --
@@ -423,7 +536,11 @@ CREATE TABLE facturas_factura (
     total_factura numeric(6,2) NOT NULL,
     total_abonado numeric(6,2) NOT NULL,
     total_pendiente numeric(6,2) NOT NULL,
-    fecha_cierre date
+    fecha_cierre date,
+    impuesto_id integer,
+    descuento_id integer,
+    saldo_utilizado numeric(6,2) NOT NULL,
+    metodo_pago integer NOT NULL
 );
 
 
@@ -445,12 +562,50 @@ CREATE SEQUENCE facturas_factura_id_seq
 ALTER TABLE public.facturas_factura_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2239 (class 0 OID 0)
+-- TOC entry 2295 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: facturas_factura_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
 
 ALTER SEQUENCE facturas_factura_id_seq OWNED BY facturas_factura.id;
+
+
+--
+-- TOC entry 214 (class 1259 OID 33173)
+-- Name: facturas_impuesto; Type: TABLE; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE TABLE facturas_impuesto (
+    id integer NOT NULL,
+    identificador character varying(4) NOT NULL,
+    valor_decimal numeric(6,2) NOT NULL
+);
+
+
+ALTER TABLE public.facturas_impuesto OWNER TO postgres;
+
+--
+-- TOC entry 213 (class 1259 OID 33171)
+-- Name: facturas_impuesto_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+CREATE SEQUENCE facturas_impuesto_id_seq
+    START WITH 1
+    INCREMENT BY 1
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1;
+
+
+ALTER TABLE public.facturas_impuesto_id_seq OWNER TO postgres;
+
+--
+-- TOC entry 2296 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: facturas_impuesto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
+--
+
+ALTER SEQUENCE facturas_impuesto_id_seq OWNED BY facturas_impuesto.id;
 
 
 --
@@ -462,8 +617,8 @@ CREATE TABLE facturas_producto_factura (
     id integer NOT NULL,
     factura_id integer NOT NULL,
     cantidad integer NOT NULL,
-    subtotal numeric(6,2) NOT NULL,
-    producto_precio_id integer NOT NULL
+    producto_precio_id integer NOT NULL,
+    subtotal numeric(6,2) NOT NULL
 );
 
 
@@ -485,7 +640,7 @@ CREATE SEQUENCE facturas_producto_factura_id_seq
 ALTER TABLE public.facturas_producto_factura_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2240 (class 0 OID 0)
+-- TOC entry 2297 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: facturas_producto_factura_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -501,7 +656,9 @@ ALTER SEQUENCE facturas_producto_factura_id_seq OWNED BY facturas_producto_factu
 CREATE TABLE inventario_compra (
     id integer NOT NULL,
     fecha date NOT NULL,
-    total_compra numeric(6,2) NOT NULL
+    total_compra numeric(6,2) NOT NULL,
+    detalles text,
+    imagen character varying(100)
 );
 
 
@@ -523,7 +680,7 @@ CREATE SEQUENCE inventario_compra_id_seq
 ALTER TABLE public.inventario_compra_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2241 (class 0 OID 0)
+-- TOC entry 2298 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: inventario_compra_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -561,7 +718,7 @@ CREATE SEQUENCE inventario_disponibilidad_id_seq
 ALTER TABLE public.inventario_disponibilidad_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2242 (class 0 OID 0)
+-- TOC entry 2299 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: inventario_disponibilidad_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -616,7 +773,7 @@ CREATE SEQUENCE inventario_producto_abastecimiento_id_seq
 ALTER TABLE public.inventario_producto_abastecimiento_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2243 (class 0 OID 0)
+-- TOC entry 2300 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: inventario_producto_abastecimiento_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -655,7 +812,7 @@ CREATE SEQUENCE inventario_producto_compra_id_seq
 ALTER TABLE public.inventario_producto_compra_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2244 (class 0 OID 0)
+-- TOC entry 2301 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: inventario_producto_compra_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -697,7 +854,7 @@ CREATE SEQUENCE inventario_producto_costo_id_seq
 ALTER TABLE public.inventario_producto_costo_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2245 (class 0 OID 0)
+-- TOC entry 2302 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: inventario_producto_costo_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -721,7 +878,7 @@ CREATE SEQUENCE inventario_producto_id_seq
 ALTER TABLE public.inventario_producto_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2246 (class 0 OID 0)
+-- TOC entry 2303 (class 0 OID 0)
 -- Dependencies: 193
 -- Name: inventario_producto_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -762,7 +919,7 @@ CREATE SEQUENCE inventario_producto_precio_id_seq
 ALTER TABLE public.inventario_producto_precio_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2247 (class 0 OID 0)
+-- TOC entry 2304 (class 0 OID 0)
 -- Dependencies: 199
 -- Name: inventario_producto_precio_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -800,7 +957,7 @@ CREATE SEQUENCE inventario_proveedor_id_seq
 ALTER TABLE public.inventario_proveedor_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2248 (class 0 OID 0)
+-- TOC entry 2305 (class 0 OID 0)
 -- Dependencies: 195
 -- Name: inventario_proveedor_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -839,7 +996,7 @@ CREATE SEQUENCE south_migrationhistory_id_seq
 ALTER TABLE public.south_migrationhistory_id_seq OWNER TO postgres;
 
 --
--- TOC entry 2249 (class 0 OID 0)
+-- TOC entry 2306 (class 0 OID 0)
 -- Dependencies: 191
 -- Name: south_migrationhistory_id_seq; Type: SEQUENCE OWNED BY; Schema: public; Owner: postgres
 --
@@ -848,7 +1005,7 @@ ALTER SEQUENCE south_migrationhistory_id_seq OWNED BY south_migrationhistory.id;
 
 
 --
--- TOC entry 1951 (class 2604 OID 16436)
+-- TOC entry 1976 (class 2604 OID 16436)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -856,7 +1013,7 @@ ALTER TABLE ONLY auth_group ALTER COLUMN id SET DEFAULT nextval('auth_group_id_s
 
 
 --
--- TOC entry 1950 (class 2604 OID 16421)
+-- TOC entry 1975 (class 2604 OID 16421)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -864,7 +1021,7 @@ ALTER TABLE ONLY auth_group_permissions ALTER COLUMN id SET DEFAULT nextval('aut
 
 
 --
--- TOC entry 1949 (class 2604 OID 16411)
+-- TOC entry 1974 (class 2604 OID 16411)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -872,7 +1029,7 @@ ALTER TABLE ONLY auth_permission ALTER COLUMN id SET DEFAULT nextval('auth_permi
 
 
 --
--- TOC entry 1954 (class 2604 OID 16481)
+-- TOC entry 1979 (class 2604 OID 16481)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -880,7 +1037,7 @@ ALTER TABLE ONLY auth_user ALTER COLUMN id SET DEFAULT nextval('auth_user_id_seq
 
 
 --
--- TOC entry 1952 (class 2604 OID 16451)
+-- TOC entry 1977 (class 2604 OID 16451)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -888,7 +1045,7 @@ ALTER TABLE ONLY auth_user_groups ALTER COLUMN id SET DEFAULT nextval('auth_user
 
 
 --
--- TOC entry 1953 (class 2604 OID 16466)
+-- TOC entry 1978 (class 2604 OID 16466)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -896,7 +1053,7 @@ ALTER TABLE ONLY auth_user_user_permissions ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 1956 (class 2604 OID 16548)
+-- TOC entry 1981 (class 2604 OID 16548)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -904,7 +1061,15 @@ ALTER TABLE ONLY clientes_cliente ALTER COLUMN id SET DEFAULT nextval('clientes_
 
 
 --
--- TOC entry 1947 (class 2604 OID 16399)
+-- TOC entry 1996 (class 2604 OID 33234)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY clientes_saldo_cliente ALTER COLUMN id SET DEFAULT nextval('clientes_saldo_cliente_id_seq'::regclass);
+
+
+--
+-- TOC entry 1972 (class 2604 OID 16399)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -912,7 +1077,7 @@ ALTER TABLE ONLY django_admin_log ALTER COLUMN id SET DEFAULT nextval('django_ad
 
 
 --
--- TOC entry 1955 (class 2604 OID 16506)
+-- TOC entry 1980 (class 2604 OID 16506)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -920,7 +1085,23 @@ ALTER TABLE ONLY django_content_type ALTER COLUMN id SET DEFAULT nextval('django
 
 
 --
--- TOC entry 1957 (class 2604 OID 16572)
+-- TOC entry 1995 (class 2604 OID 33184)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY facturas_abono_factura ALTER COLUMN id SET DEFAULT nextval('facturas_abono_factura_id_seq'::regclass);
+
+
+--
+-- TOC entry 1993 (class 2604 OID 33168)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY facturas_descuento ALTER COLUMN id SET DEFAULT nextval('facturas_descuento_id_seq'::regclass);
+
+
+--
+-- TOC entry 1982 (class 2604 OID 16572)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -928,7 +1109,15 @@ ALTER TABLE ONLY facturas_factura ALTER COLUMN id SET DEFAULT nextval('facturas_
 
 
 --
--- TOC entry 1967 (class 2604 OID 24870)
+-- TOC entry 1994 (class 2604 OID 33176)
+-- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY facturas_impuesto ALTER COLUMN id SET DEFAULT nextval('facturas_impuesto_id_seq'::regclass);
+
+
+--
+-- TOC entry 1992 (class 2604 OID 24870)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -936,7 +1125,7 @@ ALTER TABLE ONLY facturas_producto_factura ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- TOC entry 1964 (class 2604 OID 24831)
+-- TOC entry 1989 (class 2604 OID 24831)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -944,7 +1133,7 @@ ALTER TABLE ONLY inventario_compra ALTER COLUMN id SET DEFAULT nextval('inventar
 
 
 --
--- TOC entry 1963 (class 2604 OID 24816)
+-- TOC entry 1988 (class 2604 OID 24816)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -952,7 +1141,7 @@ ALTER TABLE ONLY inventario_disponibilidad ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- TOC entry 1959 (class 2604 OID 24759)
+-- TOC entry 1984 (class 2604 OID 24759)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -960,7 +1149,7 @@ ALTER TABLE ONLY inventario_producto ALTER COLUMN id SET DEFAULT nextval('invent
 
 
 --
--- TOC entry 1966 (class 2604 OID 24857)
+-- TOC entry 1991 (class 2604 OID 24857)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -968,7 +1157,7 @@ ALTER TABLE ONLY inventario_producto_abastecimiento ALTER COLUMN id SET DEFAULT 
 
 
 --
--- TOC entry 1965 (class 2604 OID 24839)
+-- TOC entry 1990 (class 2604 OID 24839)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -976,7 +1165,7 @@ ALTER TABLE ONLY inventario_producto_compra ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 1961 (class 2604 OID 24781)
+-- TOC entry 1986 (class 2604 OID 24781)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -984,7 +1173,7 @@ ALTER TABLE ONLY inventario_producto_costo ALTER COLUMN id SET DEFAULT nextval('
 
 
 --
--- TOC entry 1962 (class 2604 OID 24801)
+-- TOC entry 1987 (class 2604 OID 24801)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -992,7 +1181,7 @@ ALTER TABLE ONLY inventario_producto_precio ALTER COLUMN id SET DEFAULT nextval(
 
 
 --
--- TOC entry 1960 (class 2604 OID 24770)
+-- TOC entry 1985 (class 2604 OID 24770)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1000,7 +1189,7 @@ ALTER TABLE ONLY inventario_proveedor ALTER COLUMN id SET DEFAULT nextval('inven
 
 
 --
--- TOC entry 1958 (class 2604 OID 16663)
+-- TOC entry 1983 (class 2604 OID 16663)
 -- Name: id; Type: DEFAULT; Schema: public; Owner: postgres
 --
 
@@ -1008,7 +1197,7 @@ ALTER TABLE ONLY south_migrationhistory ALTER COLUMN id SET DEFAULT nextval('sou
 
 
 --
--- TOC entry 2188 (class 0 OID 16433)
+-- TOC entry 2233 (class 0 OID 16433)
 -- Dependencies: 177
 -- Data for Name: auth_group; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1018,7 +1207,7 @@ COPY auth_group (id, name) FROM stdin;
 
 
 --
--- TOC entry 2250 (class 0 OID 0)
+-- TOC entry 2307 (class 0 OID 0)
 -- Dependencies: 176
 -- Name: auth_group_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1027,7 +1216,7 @@ SELECT pg_catalog.setval('auth_group_id_seq', 1, false);
 
 
 --
--- TOC entry 2186 (class 0 OID 16418)
+-- TOC entry 2231 (class 0 OID 16418)
 -- Dependencies: 175
 -- Data for Name: auth_group_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1037,7 +1226,7 @@ COPY auth_group_permissions (id, group_id, permission_id) FROM stdin;
 
 
 --
--- TOC entry 2251 (class 0 OID 0)
+-- TOC entry 2308 (class 0 OID 0)
 -- Dependencies: 174
 -- Name: auth_group_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1046,7 +1235,7 @@ SELECT pg_catalog.setval('auth_group_permissions_id_seq', 1, false);
 
 
 --
--- TOC entry 2184 (class 0 OID 16408)
+-- TOC entry 2229 (class 0 OID 16408)
 -- Dependencies: 173
 -- Data for Name: auth_permission; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1106,20 +1295,32 @@ COPY auth_permission (id, name, content_type_id, codename) FROM stdin;
 52	Can add producto_precio	18	add_producto_precio
 53	Can change producto_precio	18	change_producto_precio
 54	Can delete producto_precio	18	delete_producto_precio
+55	Can add impuesto	19	add_impuesto
+56	Can change impuesto	19	change_impuesto
+57	Can delete impuesto	19	delete_impuesto
+58	Can add descuento	20	add_descuento
+59	Can change descuento	20	change_descuento
+60	Can delete descuento	20	delete_descuento
+61	Can add abono_factura	21	add_abono_factura
+62	Can change abono_factura	21	change_abono_factura
+63	Can delete abono_factura	21	delete_abono_factura
+64	Can add saldo_cliente	22	add_saldo_cliente
+65	Can change saldo_cliente	22	change_saldo_cliente
+66	Can delete saldo_cliente	22	delete_saldo_cliente
 \.
 
 
 --
--- TOC entry 2252 (class 0 OID 0)
+-- TOC entry 2309 (class 0 OID 0)
 -- Dependencies: 172
 -- Name: auth_permission_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('auth_permission_id_seq', 54, true);
+SELECT pg_catalog.setval('auth_permission_id_seq', 66, true);
 
 
 --
--- TOC entry 2194 (class 0 OID 16478)
+-- TOC entry 2239 (class 0 OID 16478)
 -- Dependencies: 183
 -- Data for Name: auth_user; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1130,7 +1331,7 @@ COPY auth_user (id, password, last_login, is_superuser, username, first_name, la
 
 
 --
--- TOC entry 2190 (class 0 OID 16448)
+-- TOC entry 2235 (class 0 OID 16448)
 -- Dependencies: 179
 -- Data for Name: auth_user_groups; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1140,7 +1341,7 @@ COPY auth_user_groups (id, user_id, group_id) FROM stdin;
 
 
 --
--- TOC entry 2253 (class 0 OID 0)
+-- TOC entry 2310 (class 0 OID 0)
 -- Dependencies: 178
 -- Name: auth_user_groups_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1149,7 +1350,7 @@ SELECT pg_catalog.setval('auth_user_groups_id_seq', 1, false);
 
 
 --
--- TOC entry 2254 (class 0 OID 0)
+-- TOC entry 2311 (class 0 OID 0)
 -- Dependencies: 182
 -- Name: auth_user_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1158,7 +1359,7 @@ SELECT pg_catalog.setval('auth_user_id_seq', 1, true);
 
 
 --
--- TOC entry 2192 (class 0 OID 16463)
+-- TOC entry 2237 (class 0 OID 16463)
 -- Dependencies: 181
 -- Data for Name: auth_user_user_permissions; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1168,7 +1369,7 @@ COPY auth_user_user_permissions (id, user_id, permission_id) FROM stdin;
 
 
 --
--- TOC entry 2255 (class 0 OID 0)
+-- TOC entry 2312 (class 0 OID 0)
 -- Dependencies: 180
 -- Name: auth_user_user_permissions_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1177,26 +1378,46 @@ SELECT pg_catalog.setval('auth_user_user_permissions_id_seq', 1, false);
 
 
 --
--- TOC entry 2199 (class 0 OID 16545)
+-- TOC entry 2244 (class 0 OID 16545)
 -- Dependencies: 188
 -- Data for Name: clientes_cliente; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY clientes_cliente (id, nombre, apellido, cargo, celular, correo) FROM stdin;
+COPY clientes_cliente (id, nombre, celular, correo) FROM stdin;
+1	DANY ASENCIO		dasencio@tigo.com.hn
 \.
 
 
 --
--- TOC entry 2256 (class 0 OID 0)
+-- TOC entry 2313 (class 0 OID 0)
 -- Dependencies: 187
 -- Name: clientes_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('clientes_cliente_id_seq', 1, false);
+SELECT pg_catalog.setval('clientes_cliente_id_seq', 1, true);
 
 
 --
--- TOC entry 2182 (class 0 OID 16396)
+-- TOC entry 2274 (class 0 OID 33231)
+-- Dependencies: 218
+-- Data for Name: clientes_saldo_cliente; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY clientes_saldo_cliente (id, cliente_id, saldo) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2314 (class 0 OID 0)
+-- Dependencies: 217
+-- Name: clientes_saldo_cliente_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('clientes_saldo_cliente_id_seq', 1, false);
+
+
+--
+-- TOC entry 2227 (class 0 OID 16396)
 -- Dependencies: 171
 -- Data for Name: django_admin_log; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1279,20 +1500,55 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 75	2014-09-17 17:11:47.028-06	1	12	8	2014-09-17(136.80)	1	
 76	2014-09-17 17:13:40.538-06	1	12	9	2014-09-17(136.80)	1	
 77	2014-09-17 17:14:49.994-06	1	12	9	2014-09-17(136.80)	3	
+78	2014-09-18 09:07:40.425-06	1	12	10	2014-09-18(308.30)	1	
+79	2014-09-23 11:01:55.364-06	1	8	14	Galleta Chicky	1	
+80	2014-09-23 11:03:02.848-06	1	17	14	[True] Galleta Chicky | 3.33 (PRICESMART)	1	
+81	2014-09-23 11:03:34-06	1	17	3	[True] CocaCola  | 11.41 (PRICESMART)	2	Changed costo.
+82	2014-09-23 11:04:09.256-06	1	12	11	2014-09-23(393.72)	1	
+83	2014-09-24 09:32:43.557-06	1	18	5	[Activo: True] Galleta Oreo | 7.00	2	Changed precio.
+84	2014-09-24 09:33:45.584-06	1	18	14	[Activo: True] Galleta Chicky | 7.00	1	
+85	2014-09-25 11:00:27.288-06	1	8	15	Galleta Oreo Golden	1	
+86	2014-09-25 11:01:07.051-06	1	8	16	Galleta Chips Ahoy	1	
+87	2014-09-25 11:01:26.847-06	1	8	17	Galletas Ritz Queso	1	
+88	2014-09-25 11:01:55.561-06	1	8	18	Tajadas Pequeñas	1	
+89	2014-09-25 11:02:20.372-06	1	8	19	Tajadas Grandes	1	
+90	2014-09-25 11:33:14.468-06	1	18	5	[Activo: True] Galleta Oreo | 8.00	2	Changed precio.
+91	2014-09-25 11:54:38.24-06	1	17	15	[True] Galleta Oreo Golden | 3.70 (PRICESMART)	1	
+92	2014-09-25 15:22:32.606-06	1	17	16	[True] Galleta Chips Ahoy | 10.83 (PRICESMART)	1	
+93	2014-09-25 15:25:02.688-06	1	17	17	[True] Galletas Ritz Queso | 0.00 (PRICESMART)	1	
+94	2014-09-25 15:25:57.193-06	1	16	3	Dario Castro	1	
+95	2014-09-25 15:26:08.103-06	1	17	18	[True] Tajadas Pequeñas | 7.00 (Dario Castro)	1	
+96	2014-09-25 15:26:21.37-06	1	17	19	[True] Tajadas Grandes | 13.00 (Dario Castro)	1	
+97	2014-09-25 15:26:50.154-06	1	18	15	[Activo: True] Galleta Oreo Golden | 8.00	1	
+98	2014-09-25 15:27:09.483-06	1	18	16	[Activo: True] Galleta Chips Ahoy | 13.00	1	
+99	2014-09-25 15:27:20.579-06	1	18	17	[Activo: True] Galletas Ritz Queso | 8.00	1	
+100	2014-09-25 15:27:29.066-06	1	18	18	[Activo: True] Tajadas Pequeñas | 10.00	1	
+101	2014-09-25 15:27:37.524-06	1	18	19	[Activo: True] Tajadas Grandes | 16.00	1	
+102	2014-09-25 15:32:08.64-06	1	12	12	2014-09-25(876.62)	1	
+103	2014-09-25 15:51:05.419-06	1	12	12	2014-09-25(787.85)	2	Changed total_compra, detalles and imagen.
+104	2014-09-25 16:23:17.629-06	1	8	1	Churro Frito Lay	2	Changed imagen.
+105	2014-09-25 18:28:52.91-06	1	7	1	cliente object	1	
+106	2014-09-25 18:33:38.63-06	1	9	5	factura object	1	
+107	2014-09-25 18:40:50.923-06	1	9	5	DANY ASENCIO 2014-09-25(31.00)	2	No fields changed.
+108	2014-09-25 18:41:07.903-06	1	9	5	DANY ASENCIO 2014-09-25(31.00)	2	Deleted producto_factura "Nieve de Fruta".
+109	2014-09-25 18:41:31.523-06	1	9	5	DANY ASENCIO 2014-09-25(36.00)	2	Added producto_factura "Nieve de Fruta".
+110	2014-09-25 18:41:43.76-06	1	9	5	DANY ASENCIO 2014-09-25(36.00)	2	Deleted producto_factura "Paleta Jolly Rancher". Deleted producto_factura "Rice Krispies Treats". Deleted producto_factura "Galleta Chicky".
+111	2014-09-25 18:47:10.606-06	1	9	5	DANY ASENCIO 2014-09-25(31.00)	2	Deleted producto_factura "Nieve de Fruta".
+112	2014-09-25 18:47:35.028-06	1	9	5	DANY ASENCIO 2014-09-25(31.00)	3	
 \.
 
 
 --
--- TOC entry 2257 (class 0 OID 0)
+-- TOC entry 2315 (class 0 OID 0)
 -- Dependencies: 170
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 77, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 112, true);
 
 
 --
--- TOC entry 2196 (class 0 OID 16503)
+-- TOC entry 2241 (class 0 OID 16503)
 -- Dependencies: 185
 -- Data for Name: django_content_type; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1316,20 +1572,24 @@ COPY django_content_type (id, name, app_label, model) FROM stdin;
 16	proveedor	inventario	proveedor
 17	producto_costo	inventario	producto_costo
 18	producto_precio	inventario	producto_precio
+19	impuesto	facturas	impuesto
+20	descuento	facturas	descuento
+21	abono_factura	facturas	abono_factura
+22	saldo_cliente	clientes	saldo_cliente
 \.
 
 
 --
--- TOC entry 2258 (class 0 OID 0)
+-- TOC entry 2316 (class 0 OID 0)
 -- Dependencies: 184
 -- Name: django_content_type_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('django_content_type_id_seq', 18, true);
+SELECT pg_catalog.setval('django_content_type_id_seq', 22, true);
 
 
 --
--- TOC entry 2197 (class 0 OID 16521)
+-- TOC entry 2242 (class 0 OID 16521)
 -- Dependencies: 186
 -- Data for Name: django_session; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1341,107 +1601,169 @@ litosy5frlo3dtmvclycm4fo7xr2e9rj	NjQxZmQwZDY1YjdkOWUxNWVlNTVhOTQ2M2ViYjYyMmY1MzU
 
 
 --
--- TOC entry 2201 (class 0 OID 16569)
+-- TOC entry 2272 (class 0 OID 33181)
+-- Dependencies: 216
+-- Data for Name: facturas_abono_factura; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY facturas_abono_factura (id, factura_id, abono, fecha_cierre) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2317 (class 0 OID 0)
+-- Dependencies: 215
+-- Name: facturas_abono_factura_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('facturas_abono_factura_id_seq', 1, false);
+
+
+--
+-- TOC entry 2268 (class 0 OID 33165)
+-- Dependencies: 212
+-- Data for Name: facturas_descuento; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY facturas_descuento (id, identificador, valor_decimal) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2318 (class 0 OID 0)
+-- Dependencies: 211
+-- Name: facturas_descuento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('facturas_descuento_id_seq', 1, false);
+
+
+--
+-- TOC entry 2246 (class 0 OID 16569)
 -- Dependencies: 190
 -- Data for Name: facturas_factura; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY facturas_factura (id, cliente_id, estado, fecha_apertura, total_factura, total_abonado, total_pendiente, fecha_cierre) FROM stdin;
+COPY facturas_factura (id, cliente_id, estado, fecha_apertura, total_factura, total_abonado, total_pendiente, fecha_cierre, impuesto_id, descuento_id, saldo_utilizado, metodo_pago) FROM stdin;
 \.
 
 
 --
--- TOC entry 2259 (class 0 OID 0)
+-- TOC entry 2319 (class 0 OID 0)
 -- Dependencies: 189
 -- Name: facturas_factura_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('facturas_factura_id_seq', 1, false);
+SELECT pg_catalog.setval('facturas_factura_id_seq', 5, true);
 
 
 --
--- TOC entry 2221 (class 0 OID 24867)
+-- TOC entry 2270 (class 0 OID 33173)
+-- Dependencies: 214
+-- Data for Name: facturas_impuesto; Type: TABLE DATA; Schema: public; Owner: postgres
+--
+
+COPY facturas_impuesto (id, identificador, valor_decimal) FROM stdin;
+\.
+
+
+--
+-- TOC entry 2320 (class 0 OID 0)
+-- Dependencies: 213
+-- Name: facturas_impuesto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('facturas_impuesto_id_seq', 1, false);
+
+
+--
+-- TOC entry 2266 (class 0 OID 24867)
 -- Dependencies: 210
 -- Data for Name: facturas_producto_factura; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY facturas_producto_factura (id, factura_id, cantidad, subtotal, producto_precio_id) FROM stdin;
+COPY facturas_producto_factura (id, factura_id, cantidad, producto_precio_id, subtotal) FROM stdin;
 \.
 
 
 --
--- TOC entry 2260 (class 0 OID 0)
+-- TOC entry 2321 (class 0 OID 0)
 -- Dependencies: 209
 -- Name: facturas_producto_factura_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('facturas_producto_factura_id_seq', 1, false);
+SELECT pg_catalog.setval('facturas_producto_factura_id_seq', 6, true);
 
 
 --
--- TOC entry 2215 (class 0 OID 24828)
+-- TOC entry 2260 (class 0 OID 24828)
 -- Dependencies: 204
 -- Data for Name: inventario_compra; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-COPY inventario_compra (id, fecha, total_compra) FROM stdin;
-2	2014-09-02	541.50
-3	2014-09-09	687.00
-4	2014-09-10	242.80
-7	2014-09-11	734.40
-8	2014-09-17	136.80
+COPY inventario_compra (id, fecha, total_compra, detalles, imagen) FROM stdin;
+2	2014-09-02	541.50	\N	\N
+3	2014-09-09	687.00	\N	\N
+4	2014-09-10	242.80	\N	\N
+7	2014-09-11	734.40	\N	\N
+8	2014-09-17	136.80	\N	\N
+10	2014-09-18	308.30	\N	\N
+11	2014-09-23	393.72	\N	\N
+12	2014-09-25	787.85	Las galletas se compraron en un paquete lonchera que incluye 24 oreos normales, 12 golden y 24 chips ahoy. El paquete de 60 cuesta 299.95 y por unidad las galletas cuestan 4.98. 	pulpe/resources/imgs/compras/20140925_154327.jpg
 \.
 
 
 --
--- TOC entry 2261 (class 0 OID 0)
+-- TOC entry 2322 (class 0 OID 0)
 -- Dependencies: 203
 -- Name: inventario_compra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_compra_id_seq', 9, true);
+SELECT pg_catalog.setval('inventario_compra_id_seq', 12, true);
 
 
 --
--- TOC entry 2213 (class 0 OID 24813)
+-- TOC entry 2258 (class 0 OID 24813)
 -- Dependencies: 202
 -- Data for Name: inventario_disponibilidad; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY inventario_disponibilidad (id, producto_id, cantidad) FROM stdin;
 2	1	50
-3	2	35
-5	4	24
-6	5	36
 7	6	50
 8	7	28
-9	9	28
 10	8	20
-14	13	48
 15	12	8
-16	11	40
 17	10	24
-4	3	48
+4	3	84
+19	15	12
+6	5	60
+20	16	24
+5	4	48
+3	2	105
+9	9	26
+16	11	39
+18	14	35
+14	13	47
 \.
 
 
 --
--- TOC entry 2262 (class 0 OID 0)
+-- TOC entry 2323 (class 0 OID 0)
 -- Dependencies: 201
 -- Name: inventario_disponibilidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_disponibilidad_id_seq', 17, true);
+SELECT pg_catalog.setval('inventario_disponibilidad_id_seq', 20, true);
 
 
 --
--- TOC entry 2205 (class 0 OID 24756)
+-- TOC entry 2250 (class 0 OID 24756)
 -- Dependencies: 194
 -- Data for Name: inventario_producto; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
 COPY inventario_producto (id, nombre, marca, imagen, detalles, categoria) FROM stdin;
-1	Churro Frito Lay	Frito Lay		Churro de Importación	S
 2	Churro Sabritas	Sabritas		Churro Variado	S
 3	CocaCola 	CocaCola 		600ml	R
 4	Te Lipton	Lipton		500ml	R
@@ -1454,11 +1776,18 @@ COPY inventario_producto (id, nombre, marca, imagen, detalles, categoria) FROM s
 11	Rice Krispies Treats	Rice Krispy		Presentación tres sabores	D
 12	Yogurt Yoplait	Yoplait		Presentación Bebible	O
 13	Nieve de Fruta	27 Siete		Juguitos congelados con sabor a fruta	C
+14	Galleta Chicky	Pozuelo		Unidad de variedad	D
+15	Galleta Oreo Golden	Oreo		Sabor a Vainilla	D
+16	Galleta Chips Ahoy	Chips Ahoy		Presentación de 4 galletas	D
+17	Galletas Ritz Queso	Ritz		Con queso	S
+18	Tajadas Pequeñas	Dario		Bolsa pequeña	S
+19	Tajadas Grandes	Dario		Bolsa grande	S
+1	Churro Frito Lay	Frito Lay	pulpe/resources/imgs/productos/FritoLays_ek0Ambb.jpg	Churro de Importación	S
 \.
 
 
 --
--- TOC entry 2219 (class 0 OID 24854)
+-- TOC entry 2264 (class 0 OID 24854)
 -- Dependencies: 208
 -- Data for Name: inventario_producto_abastecimiento; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1468,7 +1797,7 @@ COPY inventario_producto_abastecimiento (id, producto_id, minimo) FROM stdin;
 
 
 --
--- TOC entry 2263 (class 0 OID 0)
+-- TOC entry 2324 (class 0 OID 0)
 -- Dependencies: 207
 -- Name: inventario_producto_abastecimiento_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1477,7 +1806,7 @@ SELECT pg_catalog.setval('inventario_producto_abastecimiento_id_seq', 1, false);
 
 
 --
--- TOC entry 2217 (class 0 OID 24836)
+-- TOC entry 2262 (class 0 OID 24836)
 -- Dependencies: 206
 -- Data for Name: inventario_producto_compra; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1498,20 +1827,29 @@ COPY inventario_producto_compra (id, compra_id, producto_costo_id, cantidad) FRO
 15	7	11	40
 16	7	10	24
 17	8	3	12
+19	10	3	12
+20	10	2	35
+21	11	14	36
+22	11	3	24
+23	12	15	12
+24	12	5	24
+25	12	16	24
+26	12	4	24
+27	12	2	35
 \.
 
 
 --
--- TOC entry 2264 (class 0 OID 0)
+-- TOC entry 2325 (class 0 OID 0)
 -- Dependencies: 205
 -- Name: inventario_producto_compra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_producto_compra_id_seq', 18, true);
+SELECT pg_catalog.setval('inventario_producto_compra_id_seq', 27, true);
 
 
 --
--- TOC entry 2209 (class 0 OID 24778)
+-- TOC entry 2254 (class 0 OID 24778)
 -- Dependencies: 198
 -- Data for Name: inventario_producto_costo; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1519,7 +1857,6 @@ SELECT pg_catalog.setval('inventario_producto_compra_id_seq', 18, true);
 COPY inventario_producto_costo (id, producto_id, proveedor_id, costo, activo, fecha_ingreso, fecha_debaja) FROM stdin;
 1	1	1	7.40	t	2014-09-11	\N
 2	2	1	4.90	t	2014-09-11	\N
-3	3	1	11.40	t	2014-09-11	\N
 4	4	1	13.00	t	2014-09-11	\N
 5	5	1	3.70	t	2014-09-11	\N
 6	6	1	2.10	t	2014-09-11	\N
@@ -1530,29 +1867,36 @@ COPY inventario_producto_costo (id, producto_id, proveedor_id, costo, activo, fe
 11	11	1	6.12	t	2014-09-11	\N
 12	12	1	6.60	t	2014-09-11	\N
 13	13	1	2.50	t	2014-09-11	\N
+14	14	1	3.33	t	2014-09-23	\N
+3	3	1	11.41	t	2014-09-11	\N
+15	15	1	3.70	t	2014-09-25	\N
+16	16	1	10.83	t	2014-09-25	\N
+17	17	1	0.00	t	2014-09-25	\N
+18	18	3	7.00	t	2014-09-25	\N
+19	19	3	13.00	t	2014-09-25	\N
 \.
 
 
 --
--- TOC entry 2265 (class 0 OID 0)
+-- TOC entry 2326 (class 0 OID 0)
 -- Dependencies: 197
 -- Name: inventario_producto_costo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_producto_costo_id_seq', 13, true);
+SELECT pg_catalog.setval('inventario_producto_costo_id_seq', 19, true);
 
 
 --
--- TOC entry 2266 (class 0 OID 0)
+-- TOC entry 2327 (class 0 OID 0)
 -- Dependencies: 193
 -- Name: inventario_producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_producto_id_seq', 13, true);
+SELECT pg_catalog.setval('inventario_producto_id_seq', 19, true);
 
 
 --
--- TOC entry 2211 (class 0 OID 24798)
+-- TOC entry 2256 (class 0 OID 24798)
 -- Dependencies: 200
 -- Data for Name: inventario_producto_precio; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1562,7 +1906,6 @@ COPY inventario_producto_precio (id, producto_id, precio, activo, fecha_ingreso,
 2	2	8.00	t	2014-09-11	\N
 3	3	15.00	t	2014-09-11	\N
 4	4	17.00	t	2014-09-11	\N
-5	5	8.00	t	2014-09-11	\N
 6	6	5.00	t	2014-09-11	\N
 7	7	5.00	t	2014-09-11	\N
 8	8	6.00	t	2014-09-11	\N
@@ -1571,20 +1914,27 @@ COPY inventario_producto_precio (id, producto_id, precio, activo, fecha_ingreso,
 11	11	9.00	t	2014-09-11	\N
 12	12	10.00	t	2014-09-11	\N
 13	13	5.00	t	2014-09-11	\N
+14	14	7.00	t	2014-09-24	\N
+5	5	8.00	t	2014-09-11	\N
+15	15	8.00	t	2014-09-25	\N
+16	16	13.00	t	2014-09-25	\N
+17	17	8.00	t	2014-09-25	\N
+18	18	10.00	t	2014-09-25	\N
+19	19	16.00	t	2014-09-25	\N
 \.
 
 
 --
--- TOC entry 2267 (class 0 OID 0)
+-- TOC entry 2328 (class 0 OID 0)
 -- Dependencies: 199
 -- Name: inventario_producto_precio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_producto_precio_id_seq', 13, true);
+SELECT pg_catalog.setval('inventario_producto_precio_id_seq', 19, true);
 
 
 --
--- TOC entry 2207 (class 0 OID 24767)
+-- TOC entry 2252 (class 0 OID 24767)
 -- Dependencies: 196
 -- Data for Name: inventario_proveedor; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1592,20 +1942,21 @@ SELECT pg_catalog.setval('inventario_producto_precio_id_seq', 13, true);
 COPY inventario_proveedor (id, nombre, direccion) FROM stdin;
 1	PRICESMART	Col. El Sauce
 2	ALMACENES XTRA	Plaza Las Hadas
+3	Dario Castro	CSD
 \.
 
 
 --
--- TOC entry 2268 (class 0 OID 0)
+-- TOC entry 2329 (class 0 OID 0)
 -- Dependencies: 195
 -- Name: inventario_proveedor_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_proveedor_id_seq', 2, true);
+SELECT pg_catalog.setval('inventario_proveedor_id_seq', 3, true);
 
 
 --
--- TOC entry 2203 (class 0 OID 16660)
+-- TOC entry 2248 (class 0 OID 16660)
 -- Dependencies: 192
 -- Data for Name: south_migrationhistory; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1614,20 +1965,28 @@ COPY south_migrationhistory (id, app_name, migration, applied) FROM stdin;
 6	inventario	0001_initial	2014-09-11 09:42:49.852-06
 7	facturas	0001_initial	2014-09-17 09:52:04.805-06
 8	facturas	0002_auto__del_field_factura_fecha_cierra__add_field_factura_total_factura_	2014-09-17 10:01:17.808-06
+10	clientes	0001_initial	2014-09-24 19:03:39.377-06
+11	facturas	0003_auto__add_descuento__add_impuesto__add_abono_factura__add_field_factur	2014-09-25 11:45:38.027-06
+12	clientes	0002_auto__add_saldo_cliente	2014-09-25 11:46:07.108-06
+13	inventario	0002_auto__add_field_compra_detalles__add_field_compra_imagen	2014-09-25 15:36:13.33-06
+14	clientes	0003_auto__del_field_cliente_cargo__del_field_cliente_apellido	2014-09-25 17:08:31.306-06
+15	facturas	0004_auto__add_field_factura_metodo_pago__chg_field_factura_descuento__chg_	2014-09-25 17:54:01.072-06
+16	facturas	0005_auto__del_field_producto_factura_subtotal	2014-09-25 18:33:26.519-06
+17	facturas	0006_auto__add_field_producto_factura_subtotal	2014-09-25 18:40:38.414-06
 \.
 
 
 --
--- TOC entry 2269 (class 0 OID 0)
+-- TOC entry 2330 (class 0 OID 0)
 -- Dependencies: 191
 -- Name: south_migrationhistory_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('south_migrationhistory_id_seq', 8, true);
+SELECT pg_catalog.setval('south_migrationhistory_id_seq', 17, true);
 
 
 --
--- TOC entry 1984 (class 2606 OID 16440)
+-- TOC entry 2013 (class 2606 OID 16440)
 -- Name: auth_group_name_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1636,7 +1995,7 @@ ALTER TABLE ONLY auth_group
 
 
 --
--- TOC entry 1979 (class 2606 OID 16425)
+-- TOC entry 2008 (class 2606 OID 16425)
 -- Name: auth_group_permissions_group_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1645,7 +2004,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 1982 (class 2606 OID 16423)
+-- TOC entry 2011 (class 2606 OID 16423)
 -- Name: auth_group_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1654,7 +2013,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 1987 (class 2606 OID 16438)
+-- TOC entry 2016 (class 2606 OID 16438)
 -- Name: auth_group_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1663,7 +2022,7 @@ ALTER TABLE ONLY auth_group
 
 
 --
--- TOC entry 1974 (class 2606 OID 16415)
+-- TOC entry 2003 (class 2606 OID 16415)
 -- Name: auth_permission_content_type_id_codename_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1672,7 +2031,7 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- TOC entry 1976 (class 2606 OID 16413)
+-- TOC entry 2005 (class 2606 OID 16413)
 -- Name: auth_permission_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1681,7 +2040,7 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- TOC entry 1990 (class 2606 OID 16453)
+-- TOC entry 2019 (class 2606 OID 16453)
 -- Name: auth_user_groups_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1690,7 +2049,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 1993 (class 2606 OID 16455)
+-- TOC entry 2022 (class 2606 OID 16455)
 -- Name: auth_user_groups_user_id_group_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1699,7 +2058,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2001 (class 2606 OID 16483)
+-- TOC entry 2030 (class 2606 OID 16483)
 -- Name: auth_user_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1708,7 +2067,7 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- TOC entry 1996 (class 2606 OID 16468)
+-- TOC entry 2025 (class 2606 OID 16468)
 -- Name: auth_user_user_permissions_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1717,7 +2076,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 1999 (class 2606 OID 16470)
+-- TOC entry 2028 (class 2606 OID 16470)
 -- Name: auth_user_user_permissions_user_id_permission_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1726,7 +2085,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2003 (class 2606 OID 16485)
+-- TOC entry 2032 (class 2606 OID 16485)
 -- Name: auth_user_username_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1735,7 +2094,7 @@ ALTER TABLE ONLY auth_user
 
 
 --
--- TOC entry 2014 (class 2606 OID 16555)
+-- TOC entry 2043 (class 2606 OID 16555)
 -- Name: clientes_cliente_correo_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1744,7 +2103,7 @@ ALTER TABLE ONLY clientes_cliente
 
 
 --
--- TOC entry 2017 (class 2606 OID 16553)
+-- TOC entry 2046 (class 2606 OID 16553)
 -- Name: clientes_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1753,7 +2112,16 @@ ALTER TABLE ONLY clientes_cliente
 
 
 --
--- TOC entry 1970 (class 2606 OID 16405)
+-- TOC entry 2095 (class 2606 OID 33236)
+-- Name: clientes_saldo_cliente_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY clientes_saldo_cliente
+    ADD CONSTRAINT clientes_saldo_cliente_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 1999 (class 2606 OID 16405)
 -- Name: django_admin_log_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1762,7 +2130,7 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- TOC entry 2006 (class 2606 OID 16510)
+-- TOC entry 2035 (class 2606 OID 16510)
 -- Name: django_content_type_app_label_model_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1771,7 +2139,7 @@ ALTER TABLE ONLY django_content_type
 
 
 --
--- TOC entry 2008 (class 2606 OID 16508)
+-- TOC entry 2037 (class 2606 OID 16508)
 -- Name: django_content_type_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1780,7 +2148,7 @@ ALTER TABLE ONLY django_content_type
 
 
 --
--- TOC entry 2011 (class 2606 OID 16528)
+-- TOC entry 2040 (class 2606 OID 16528)
 -- Name: django_session_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1789,7 +2157,25 @@ ALTER TABLE ONLY django_session
 
 
 --
--- TOC entry 2020 (class 2606 OID 16574)
+-- TOC entry 2092 (class 2606 OID 33186)
+-- Name: facturas_abono_factura_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY facturas_abono_factura
+    ADD CONSTRAINT facturas_abono_factura_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2087 (class 2606 OID 33170)
+-- Name: facturas_descuento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY facturas_descuento
+    ADD CONSTRAINT facturas_descuento_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2051 (class 2606 OID 16574)
 -- Name: facturas_factura_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1798,7 +2184,16 @@ ALTER TABLE ONLY facturas_factura
 
 
 --
--- TOC entry 2053 (class 2606 OID 24872)
+-- TOC entry 2089 (class 2606 OID 33178)
+-- Name: facturas_impuesto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
+--
+
+ALTER TABLE ONLY facturas_impuesto
+    ADD CONSTRAINT facturas_impuesto_pkey PRIMARY KEY (id);
+
+
+--
+-- TOC entry 2084 (class 2606 OID 24872)
 -- Name: facturas_producto_factura_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1807,7 +2202,7 @@ ALTER TABLE ONLY facturas_producto_factura
 
 
 --
--- TOC entry 2043 (class 2606 OID 24833)
+-- TOC entry 2074 (class 2606 OID 24833)
 -- Name: inventario_compra_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1816,7 +2211,7 @@ ALTER TABLE ONLY inventario_compra
 
 
 --
--- TOC entry 2039 (class 2606 OID 24818)
+-- TOC entry 2070 (class 2606 OID 24818)
 -- Name: inventario_disponibilidad_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1825,7 +2220,7 @@ ALTER TABLE ONLY inventario_disponibilidad
 
 
 --
--- TOC entry 2041 (class 2606 OID 24820)
+-- TOC entry 2072 (class 2606 OID 24820)
 -- Name: inventario_disponibilidad_producto_id_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1834,7 +2229,7 @@ ALTER TABLE ONLY inventario_disponibilidad
 
 
 --
--- TOC entry 2049 (class 2606 OID 24859)
+-- TOC entry 2080 (class 2606 OID 24859)
 -- Name: inventario_producto_abastecimiento_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1843,7 +2238,7 @@ ALTER TABLE ONLY inventario_producto_abastecimiento
 
 
 --
--- TOC entry 2046 (class 2606 OID 24841)
+-- TOC entry 2077 (class 2606 OID 24841)
 -- Name: inventario_producto_compra_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1852,7 +2247,7 @@ ALTER TABLE ONLY inventario_producto_compra
 
 
 --
--- TOC entry 2028 (class 2606 OID 24783)
+-- TOC entry 2059 (class 2606 OID 24783)
 -- Name: inventario_producto_costo_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1861,7 +2256,7 @@ ALTER TABLE ONLY inventario_producto_costo
 
 
 --
--- TOC entry 2031 (class 2606 OID 24785)
+-- TOC entry 2062 (class 2606 OID 24785)
 -- Name: inventario_producto_costo_producto_id_proveedor_id_costo_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1870,7 +2265,7 @@ ALTER TABLE ONLY inventario_producto_costo
 
 
 --
--- TOC entry 2024 (class 2606 OID 24764)
+-- TOC entry 2055 (class 2606 OID 24764)
 -- Name: inventario_producto_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1879,7 +2274,7 @@ ALTER TABLE ONLY inventario_producto
 
 
 --
--- TOC entry 2034 (class 2606 OID 24803)
+-- TOC entry 2065 (class 2606 OID 24803)
 -- Name: inventario_producto_precio_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1888,7 +2283,7 @@ ALTER TABLE ONLY inventario_producto_precio
 
 
 --
--- TOC entry 2037 (class 2606 OID 24805)
+-- TOC entry 2068 (class 2606 OID 24805)
 -- Name: inventario_producto_precio_producto_id_precio_key; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1897,7 +2292,7 @@ ALTER TABLE ONLY inventario_producto_precio
 
 
 --
--- TOC entry 2026 (class 2606 OID 24775)
+-- TOC entry 2057 (class 2606 OID 24775)
 -- Name: inventario_proveedor_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1906,7 +2301,7 @@ ALTER TABLE ONLY inventario_proveedor
 
 
 --
--- TOC entry 2022 (class 2606 OID 16668)
+-- TOC entry 2053 (class 2606 OID 16668)
 -- Name: south_migrationhistory_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1915,7 +2310,7 @@ ALTER TABLE ONLY south_migrationhistory
 
 
 --
--- TOC entry 1985 (class 1259 OID 16534)
+-- TOC entry 2014 (class 1259 OID 16534)
 -- Name: auth_group_name_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1923,7 +2318,7 @@ CREATE INDEX auth_group_name_like ON auth_group USING btree (name varchar_patter
 
 
 --
--- TOC entry 1977 (class 1259 OID 16532)
+-- TOC entry 2006 (class 1259 OID 16532)
 -- Name: auth_group_permissions_group_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1931,7 +2326,7 @@ CREATE INDEX auth_group_permissions_group_id ON auth_group_permissions USING btr
 
 
 --
--- TOC entry 1980 (class 1259 OID 16533)
+-- TOC entry 2009 (class 1259 OID 16533)
 -- Name: auth_group_permissions_permission_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1939,7 +2334,7 @@ CREATE INDEX auth_group_permissions_permission_id ON auth_group_permissions USIN
 
 
 --
--- TOC entry 1972 (class 1259 OID 16531)
+-- TOC entry 2001 (class 1259 OID 16531)
 -- Name: auth_permission_content_type_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1947,7 +2342,7 @@ CREATE INDEX auth_permission_content_type_id ON auth_permission USING btree (con
 
 
 --
--- TOC entry 1988 (class 1259 OID 16536)
+-- TOC entry 2017 (class 1259 OID 16536)
 -- Name: auth_user_groups_group_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1955,7 +2350,7 @@ CREATE INDEX auth_user_groups_group_id ON auth_user_groups USING btree (group_id
 
 
 --
--- TOC entry 1991 (class 1259 OID 16535)
+-- TOC entry 2020 (class 1259 OID 16535)
 -- Name: auth_user_groups_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1963,7 +2358,7 @@ CREATE INDEX auth_user_groups_user_id ON auth_user_groups USING btree (user_id);
 
 
 --
--- TOC entry 1994 (class 1259 OID 16538)
+-- TOC entry 2023 (class 1259 OID 16538)
 -- Name: auth_user_user_permissions_permission_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1971,7 +2366,7 @@ CREATE INDEX auth_user_user_permissions_permission_id ON auth_user_user_permissi
 
 
 --
--- TOC entry 1997 (class 1259 OID 16537)
+-- TOC entry 2026 (class 1259 OID 16537)
 -- Name: auth_user_user_permissions_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1979,7 +2374,7 @@ CREATE INDEX auth_user_user_permissions_user_id ON auth_user_user_permissions US
 
 
 --
--- TOC entry 2004 (class 1259 OID 16539)
+-- TOC entry 2033 (class 1259 OID 16539)
 -- Name: auth_user_username_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1987,7 +2382,7 @@ CREATE INDEX auth_user_username_like ON auth_user USING btree (username varchar_
 
 
 --
--- TOC entry 2015 (class 1259 OID 16598)
+-- TOC entry 2044 (class 1259 OID 16598)
 -- Name: clientes_cliente_correo_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -1995,7 +2390,15 @@ CREATE INDEX clientes_cliente_correo_like ON clientes_cliente USING btree (corre
 
 
 --
--- TOC entry 1968 (class 1259 OID 16530)
+-- TOC entry 2093 (class 1259 OID 33242)
+-- Name: clientes_saldo_cliente_cliente_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX clientes_saldo_cliente_cliente_id ON clientes_saldo_cliente USING btree (cliente_id);
+
+
+--
+-- TOC entry 1997 (class 1259 OID 16530)
 -- Name: django_admin_log_content_type_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2003,7 +2406,7 @@ CREATE INDEX django_admin_log_content_type_id ON django_admin_log USING btree (c
 
 
 --
--- TOC entry 1971 (class 1259 OID 16529)
+-- TOC entry 2000 (class 1259 OID 16529)
 -- Name: django_admin_log_user_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2011,7 +2414,7 @@ CREATE INDEX django_admin_log_user_id ON django_admin_log USING btree (user_id);
 
 
 --
--- TOC entry 2009 (class 1259 OID 16541)
+-- TOC entry 2038 (class 1259 OID 16541)
 -- Name: django_session_expire_date; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2019,7 +2422,7 @@ CREATE INDEX django_session_expire_date ON django_session USING btree (expire_da
 
 
 --
--- TOC entry 2012 (class 1259 OID 16540)
+-- TOC entry 2041 (class 1259 OID 16540)
 -- Name: django_session_session_key_like; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2027,7 +2430,15 @@ CREATE INDEX django_session_session_key_like ON django_session USING btree (sess
 
 
 --
--- TOC entry 2018 (class 1259 OID 16599)
+-- TOC entry 2090 (class 1259 OID 33210)
+-- Name: facturas_abono_factura_factura_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX facturas_abono_factura_factura_id ON facturas_abono_factura USING btree (factura_id);
+
+
+--
+-- TOC entry 2047 (class 1259 OID 16599)
 -- Name: facturas_factura_cliente_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2035,7 +2446,23 @@ CREATE INDEX facturas_factura_cliente_id ON facturas_factura USING btree (client
 
 
 --
--- TOC entry 2051 (class 1259 OID 24889)
+-- TOC entry 2048 (class 1259 OID 33272)
+-- Name: facturas_factura_descuento_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX facturas_factura_descuento_id ON facturas_factura USING btree (descuento_id);
+
+
+--
+-- TOC entry 2049 (class 1259 OID 33278)
+-- Name: facturas_factura_impuesto_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
+--
+
+CREATE INDEX facturas_factura_impuesto_id ON facturas_factura USING btree (impuesto_id);
+
+
+--
+-- TOC entry 2082 (class 1259 OID 24889)
 -- Name: facturas_producto_factura_factura_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2043,7 +2470,7 @@ CREATE INDEX facturas_producto_factura_factura_id ON facturas_producto_factura U
 
 
 --
--- TOC entry 2054 (class 1259 OID 24927)
+-- TOC entry 2085 (class 1259 OID 24927)
 -- Name: facturas_producto_factura_producto_precio_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2051,7 +2478,7 @@ CREATE INDEX facturas_producto_factura_producto_precio_id ON facturas_producto_f
 
 
 --
--- TOC entry 2050 (class 1259 OID 24888)
+-- TOC entry 2081 (class 1259 OID 24888)
 -- Name: inventario_producto_abastecimiento_producto_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2059,7 +2486,7 @@ CREATE INDEX inventario_producto_abastecimiento_producto_id ON inventario_produc
 
 
 --
--- TOC entry 2044 (class 1259 OID 24886)
+-- TOC entry 2075 (class 1259 OID 24886)
 -- Name: inventario_producto_compra_compra_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2067,7 +2494,7 @@ CREATE INDEX inventario_producto_compra_compra_id ON inventario_producto_compra 
 
 
 --
--- TOC entry 2047 (class 1259 OID 24887)
+-- TOC entry 2078 (class 1259 OID 24887)
 -- Name: inventario_producto_compra_producto_costo_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2075,7 +2502,7 @@ CREATE INDEX inventario_producto_compra_producto_costo_id ON inventario_producto
 
 
 --
--- TOC entry 2029 (class 1259 OID 24883)
+-- TOC entry 2060 (class 1259 OID 24883)
 -- Name: inventario_producto_costo_producto_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2083,7 +2510,7 @@ CREATE INDEX inventario_producto_costo_producto_id ON inventario_producto_costo 
 
 
 --
--- TOC entry 2032 (class 1259 OID 24884)
+-- TOC entry 2063 (class 1259 OID 24884)
 -- Name: inventario_producto_costo_proveedor_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2091,7 +2518,7 @@ CREATE INDEX inventario_producto_costo_proveedor_id ON inventario_producto_costo
 
 
 --
--- TOC entry 2035 (class 1259 OID 24885)
+-- TOC entry 2066 (class 1259 OID 24885)
 -- Name: inventario_producto_precio_producto_id; Type: INDEX; Schema: public; Owner: postgres; Tablespace: 
 --
 
@@ -2099,7 +2526,7 @@ CREATE INDEX inventario_producto_precio_producto_id ON inventario_producto_preci
 
 
 --
--- TOC entry 2058 (class 2606 OID 16426)
+-- TOC entry 2099 (class 2606 OID 16426)
 -- Name: auth_group_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2108,7 +2535,7 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 2060 (class 2606 OID 16456)
+-- TOC entry 2101 (class 2606 OID 16456)
 -- Name: auth_user_groups_group_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2117,7 +2544,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2062 (class 2606 OID 16471)
+-- TOC entry 2103 (class 2606 OID 16471)
 -- Name: auth_user_user_permissions_permission_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2126,7 +2553,16 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2056 (class 2606 OID 16511)
+-- TOC entry 2118 (class 2606 OID 33237)
+-- Name: cliente_id_refs_id_0e5c2421; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY clientes_saldo_cliente
+    ADD CONSTRAINT cliente_id_refs_id_0e5c2421 FOREIGN KEY (cliente_id) REFERENCES clientes_cliente(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2097 (class 2606 OID 16511)
 -- Name: content_type_id_refs_id_93d2d1f8; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2135,7 +2571,7 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- TOC entry 2057 (class 2606 OID 16516)
+-- TOC entry 2098 (class 2606 OID 16516)
 -- Name: content_type_id_refs_id_d043b34a; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2144,7 +2580,25 @@ ALTER TABLE ONLY auth_permission
 
 
 --
--- TOC entry 2064 (class 2606 OID 16575)
+-- TOC entry 2106 (class 2606 OID 33273)
+-- Name: descuento_id_refs_id_d9145c2b; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY facturas_factura
+    ADD CONSTRAINT descuento_id_refs_id_d9145c2b FOREIGN KEY (descuento_id) REFERENCES facturas_descuento(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2117 (class 2606 OID 33205)
+-- Name: factura_id_refs_id_43b137e8; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY facturas_abono_factura
+    ADD CONSTRAINT factura_id_refs_id_43b137e8 FOREIGN KEY (factura_id) REFERENCES facturas_factura(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2105 (class 2606 OID 16575)
 -- Name: facturas_factura_cliente_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2153,7 +2607,7 @@ ALTER TABLE ONLY facturas_factura
 
 
 --
--- TOC entry 2072 (class 2606 OID 24873)
+-- TOC entry 2115 (class 2606 OID 24873)
 -- Name: facturas_producto_factura_factura_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2162,7 +2616,7 @@ ALTER TABLE ONLY facturas_producto_factura
 
 
 --
--- TOC entry 2059 (class 2606 OID 16441)
+-- TOC entry 2100 (class 2606 OID 16441)
 -- Name: group_id_refs_id_f4b32aac; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2171,7 +2625,16 @@ ALTER TABLE ONLY auth_group_permissions
 
 
 --
--- TOC entry 2068 (class 2606 OID 24821)
+-- TOC entry 2107 (class 2606 OID 33279)
+-- Name: impuesto_id_refs_id_0ac9cf2f; Type: FK CONSTRAINT; Schema: public; Owner: postgres
+--
+
+ALTER TABLE ONLY facturas_factura
+    ADD CONSTRAINT impuesto_id_refs_id_0ac9cf2f FOREIGN KEY (impuesto_id) REFERENCES facturas_impuesto(id) DEFERRABLE INITIALLY DEFERRED;
+
+
+--
+-- TOC entry 2111 (class 2606 OID 24821)
 -- Name: inventario_disponibilidad_producto_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2180,7 +2643,7 @@ ALTER TABLE ONLY inventario_disponibilidad
 
 
 --
--- TOC entry 2071 (class 2606 OID 24860)
+-- TOC entry 2114 (class 2606 OID 24860)
 -- Name: inventario_producto_abastecimiento_producto_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2189,7 +2652,7 @@ ALTER TABLE ONLY inventario_producto_abastecimiento
 
 
 --
--- TOC entry 2069 (class 2606 OID 24842)
+-- TOC entry 2112 (class 2606 OID 24842)
 -- Name: inventario_producto_compra_compra_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2198,7 +2661,7 @@ ALTER TABLE ONLY inventario_producto_compra
 
 
 --
--- TOC entry 2070 (class 2606 OID 24847)
+-- TOC entry 2113 (class 2606 OID 24847)
 -- Name: inventario_producto_compra_producto_costo_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2207,7 +2670,7 @@ ALTER TABLE ONLY inventario_producto_compra
 
 
 --
--- TOC entry 2065 (class 2606 OID 24786)
+-- TOC entry 2108 (class 2606 OID 24786)
 -- Name: inventario_producto_costo_producto_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2216,7 +2679,7 @@ ALTER TABLE ONLY inventario_producto_costo
 
 
 --
--- TOC entry 2066 (class 2606 OID 24791)
+-- TOC entry 2109 (class 2606 OID 24791)
 -- Name: inventario_producto_costo_proveedor_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2225,7 +2688,7 @@ ALTER TABLE ONLY inventario_producto_costo
 
 
 --
--- TOC entry 2067 (class 2606 OID 24806)
+-- TOC entry 2110 (class 2606 OID 24806)
 -- Name: inventario_producto_precio_producto_id_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2234,7 +2697,7 @@ ALTER TABLE ONLY inventario_producto_precio
 
 
 --
--- TOC entry 2073 (class 2606 OID 24922)
+-- TOC entry 2116 (class 2606 OID 24922)
 -- Name: producto_precio_id_refs_id_7c3927f0; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2243,7 +2706,7 @@ ALTER TABLE ONLY facturas_producto_factura
 
 
 --
--- TOC entry 2061 (class 2606 OID 16491)
+-- TOC entry 2102 (class 2606 OID 16491)
 -- Name: user_id_refs_id_40c41112; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2252,7 +2715,7 @@ ALTER TABLE ONLY auth_user_groups
 
 
 --
--- TOC entry 2063 (class 2606 OID 16496)
+-- TOC entry 2104 (class 2606 OID 16496)
 -- Name: user_id_refs_id_4dc23c39; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2261,7 +2724,7 @@ ALTER TABLE ONLY auth_user_user_permissions
 
 
 --
--- TOC entry 2055 (class 2606 OID 16486)
+-- TOC entry 2096 (class 2606 OID 16486)
 -- Name: user_id_refs_id_c0d12874; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -2270,7 +2733,7 @@ ALTER TABLE ONLY django_admin_log
 
 
 --
--- TOC entry 2228 (class 0 OID 0)
+-- TOC entry 2281 (class 0 OID 0)
 -- Dependencies: 5
 -- Name: public; Type: ACL; Schema: -; Owner: postgres
 --
@@ -2281,7 +2744,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2014-09-17 17:29:11
+-- Completed on 2014-09-25 18:49:05
 
 --
 -- PostgreSQL database dump complete

@@ -1,5 +1,6 @@
 from django.db import models
 from decimal import *
+import os
 
 CATEGORIAS = (
     ('S', 'Salados'),
@@ -13,7 +14,7 @@ CATEGORIAS = (
 class producto(models.Model):
 	nombre = models.CharField(max_length=250,null=False)
 	marca = models.CharField(max_length=150,null=False)
-	imagen = models.ImageField(upload_to = 'resources/imgs/productos/',blank=True,null=True)
+	imagen = models.ImageField(upload_to = 'pulpe/resources/imgs/productos/',blank=True,null=True)
 	detalles = models.CharField(max_length=500,null=False)
 	categoria = models.CharField(max_length=2,choices=CATEGORIAS,null=False)
 	
@@ -64,6 +65,8 @@ class disponibilidad(models.Model):
 class compra(models.Model):
 	fecha = models.DateField(null=False)
 	total_compra = models.DecimalField(max_digits=6, decimal_places=2,null=False, default = 0.0)
+	detalles = models.TextField(blank=True,null=True)
+	imagen = models.ImageField(upload_to = 'pulpe/resources/imgs/compras/',blank=True,null=True)
 	
 	def __unicode__(self):
 		return '%s(%s)' % (self.fecha,self.total_compra) 
