@@ -5,7 +5,7 @@ import os
 CATEGORIAS = (
     ('S', 'Salados'),
     ('D', 'Dulces'),
-    ('R', 'Refrescos'),
+    ('R', 'Bebidas'),
 	('C', 'Congelados'),
     ('M', 'Medicamentos'),
 	('O', 'Otros'),
