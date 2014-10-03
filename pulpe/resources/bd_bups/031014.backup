@@ -4,7 +4,7 @@
 
 -- Dumped from database version 9.3.5
 -- Dumped by pg_dump version 9.3.5
--- Started on 2014-09-29 16:59:37
+-- Started on 2014-10-03 17:16:17
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -1326,7 +1326,7 @@ SELECT pg_catalog.setval('auth_permission_id_seq', 66, true);
 --
 
 COPY auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
-1	pbkdf2_sha256$12000$uwcYlOJJYqAy$yWU20/79j6hsFLkiqmpA1gqt0YQAkCLpU84ODjzTMQQ=	2014-09-17 17:11:15.348-06	t	rardon			rolando_ardon299@hotmail.com	t	t	2014-09-03 16:41:27.544-06
+1	pbkdf2_sha256$12000$uwcYlOJJYqAy$yWU20/79j6hsFLkiqmpA1gqt0YQAkCLpU84ODjzTMQQ=	2014-10-01 17:50:24.237-06	t	rardon			rolando_ardon299@hotmail.com	t	t	2014-09-03 16:41:27.544-06
 \.
 
 
@@ -1545,6 +1545,12 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 120	2014-09-29 09:33:28.159-06	1	12	16	2014-09-29(134.04)	1	
 121	2014-09-29 09:33:51.755-06	1	12	16	2014-09-29(134.04)	3	
 122	2014-09-29 09:33:51.886-06	1	12	15	2014-09-29(134.04)	3	
+123	2014-10-01 17:51:11.9-06	1	12	17	2014-09-29(136.92)	1	
+124	2014-10-02 12:33:21.591-06	1	8	21	DONAS	1	
+125	2014-10-02 12:33:34.171-06	1	8	21	Dona	2	Changed nombre.
+126	2014-10-02 13:21:46.052-06	1	12	18	2014-10-02(538.22)	1	
+127	2014-10-02 13:22:21.791-06	1	9	6	DANY ASENCIO 2014-10-02(30.00)	1	
+128	2014-10-02 13:23:19.248-06	1	9	6	DANY ASENCIO 2014-10-02(30.00)	3	
 \.
 
 
@@ -1554,7 +1560,7 @@ COPY django_admin_log (id, action_time, user_id, content_type_id, object_id, obj
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('django_admin_log_id_seq', 122, true);
+SELECT pg_catalog.setval('django_admin_log_id_seq', 128, true);
 
 
 --
@@ -1607,6 +1613,7 @@ SELECT pg_catalog.setval('django_content_type_id_seq', 22, true);
 COPY django_session (session_key, session_data, expire_date) FROM stdin;
 upuw6vtmlwltv17jahfk35wiq3mod54d	NjQxZmQwZDY1YjdkOWUxNWVlNTVhOTQ2M2ViYjYyMmY1MzUwMGI0ZDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-09-17 16:42:01.718-06
 litosy5frlo3dtmvclycm4fo7xr2e9rj	NjQxZmQwZDY1YjdkOWUxNWVlNTVhOTQ2M2ViYjYyMmY1MzUwMGI0ZDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-10-01 17:11:15.46-06
+dlo80k7bsxncuv7omwaj5wrnsjgxzckz	NjQxZmQwZDY1YjdkOWUxNWVlNTVhOTQ2M2ViYjYyMmY1MzUwMGI0ZDp7Il9hdXRoX3VzZXJfYmFja2VuZCI6ImRqYW5nby5jb250cmliLmF1dGguYmFja2VuZHMuTW9kZWxCYWNrZW5kIiwiX2F1dGhfdXNlcl9pZCI6MX0=	2014-10-15 17:50:24.345-06
 \.
 
 
@@ -1664,7 +1671,7 @@ COPY facturas_factura (id, cliente_id, estado, fecha_apertura, total_factura, to
 -- Name: facturas_factura_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('facturas_factura_id_seq', 5, true);
+SELECT pg_catalog.setval('facturas_factura_id_seq', 6, true);
 
 
 --
@@ -1702,7 +1709,7 @@ COPY facturas_producto_factura (id, factura_id, cantidad, producto_precio_id, su
 -- Name: facturas_producto_factura_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('facturas_producto_factura_id_seq', 6, true);
+SELECT pg_catalog.setval('facturas_producto_factura_id_seq', 8, true);
 
 
 --
@@ -1721,6 +1728,8 @@ COPY inventario_compra (id, fecha, total_compra, detalles, imagen) FROM stdin;
 11	2014-09-23	393.72	\N	\N
 12	2014-09-25	787.85	Las galletas se compraron en un paquete lonchera que incluye 24 oreos normales, 12 golden, 12 Ritz con queso y 12 chips ahoy. El paquete de 60 cuesta 299.95 y por unidad las galletas cuestan 4.98. 	pulpe/resources/imgs/compras/20140925_154327.jpg
 13	2014-09-29	134.04		
+17	2014-09-29	136.92		
+18	2014-10-02	538.22		pulpe/resources/imgs/compras/20141002_123451-1.jpg
 \.
 
 
@@ -1730,7 +1739,7 @@ COPY inventario_compra (id, fecha, total_compra, detalles, imagen) FROM stdin;
 -- Name: inventario_compra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_compra_id_seq', 16, true);
+SELECT pg_catalog.setval('inventario_compra_id_seq', 18, true);
 
 
 --
@@ -1746,17 +1755,18 @@ COPY inventario_disponibilidad (id, producto_id, cantidad) FROM stdin;
 10	8	20
 15	12	8
 17	10	24
-4	3	84
 19	15	12
 6	5	60
-20	16	24
-5	4	48
-3	2	105
 9	9	26
 16	11	39
 18	14	35
 14	13	47
 22	20	36
+23	21	12
+4	3	120
+3	2	140
+5	4	47
+20	16	23
 \.
 
 
@@ -1766,7 +1776,7 @@ COPY inventario_disponibilidad (id, producto_id, cantidad) FROM stdin;
 -- Name: inventario_disponibilidad_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_disponibilidad_id_seq', 22, true);
+SELECT pg_catalog.setval('inventario_disponibilidad_id_seq', 23, true);
 
 
 --
@@ -1796,6 +1806,7 @@ COPY inventario_producto (id, nombre, marca, imagen, detalles, categoria) FROM s
 19	Tajadas Grandes	Dario		Bolsa grande	S
 1	Churro Frito Lay	Frito Lay	pulpe/resources/imgs/productos/FritoLays_ek0Ambb.jpg	Churro de Importación	S
 20	Café Instantáneo	NESCAFE	pulpe/resources/imgs/productos/Nescafe-Cappuccino.jpg	Sobrecito de varios sabores	R
+21	Dona	PRICESMART		Sabor variado y rellenas.	D
 \.
 
 
@@ -1850,6 +1861,10 @@ COPY inventario_producto_compra (id, compra_id, producto_costo_id, cantidad) FRO
 26	12	4	24
 27	12	2	35
 28	13	20	12
+31	17	3	12
+32	18	21	12
+33	18	3	24
+34	18	2	35
 \.
 
 
@@ -1859,7 +1874,7 @@ COPY inventario_producto_compra (id, compra_id, producto_costo_id, cantidad) FRO
 -- Name: inventario_producto_compra_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_producto_compra_id_seq', 30, true);
+SELECT pg_catalog.setval('inventario_producto_compra_id_seq', 34, true);
 
 
 --
@@ -1889,6 +1904,7 @@ COPY inventario_producto_costo (id, producto_id, proveedor_id, costo, activo, fe
 18	18	3	7.00	t	2014-09-25	\N
 19	19	3	13.00	t	2014-09-25	\N
 20	20	4	11.17	t	2014-09-29	\N
+21	21	1	7.74	t	2014-10-02	\N
 \.
 
 
@@ -1898,7 +1914,7 @@ COPY inventario_producto_costo (id, producto_id, proveedor_id, costo, activo, fe
 -- Name: inventario_producto_costo_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_producto_costo_id_seq', 20, true);
+SELECT pg_catalog.setval('inventario_producto_costo_id_seq', 21, true);
 
 
 --
@@ -1907,7 +1923,7 @@ SELECT pg_catalog.setval('inventario_producto_costo_id_seq', 20, true);
 -- Name: inventario_producto_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_producto_id_seq', 20, true);
+SELECT pg_catalog.setval('inventario_producto_id_seq', 21, true);
 
 
 --
@@ -1937,6 +1953,7 @@ COPY inventario_producto_precio (id, producto_id, precio, activo, fecha_ingreso,
 18	18	10.00	t	2014-09-25	\N
 19	19	16.00	t	2014-09-25	\N
 20	20	15.00	t	2014-09-29	\N
+21	21	15.00	t	2014-10-02	\N
 \.
 
 
@@ -1946,7 +1963,7 @@ COPY inventario_producto_precio (id, producto_id, precio, activo, fecha_ingreso,
 -- Name: inventario_producto_precio_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('inventario_producto_precio_id_seq', 20, true);
+SELECT pg_catalog.setval('inventario_producto_precio_id_seq', 21, true);
 
 
 --
@@ -2761,7 +2778,7 @@ GRANT ALL ON SCHEMA public TO postgres;
 GRANT ALL ON SCHEMA public TO PUBLIC;
 
 
--- Completed on 2014-09-29 16:59:40
+-- Completed on 2014-10-03 17:16:21
 
 --
 -- PostgreSQL database dump complete
