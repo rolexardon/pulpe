@@ -28,11 +28,15 @@ class factura(models.Model):
 	cliente = models.ForeignKey(cliente)
 	estado = models.IntegerField(choices=STATUS_CHOICES,default=1,null=False)
 	metodo_pago = models.IntegerField(choices=PAYMENT_CHOICES,default=6,null=False)
+	detalles = models.TextField(blank=True,null=True)
+	enviada = models.BooleanField(default=False)
 	impuesto = models.ForeignKey(impuesto,blank=True,null=True)
-	descuento  = models.ForeignKey(descuento,blank=True,null=True)
-	saldo_utilizado = models.DecimalField(max_digits=6, decimal_places=2,null=False, default = 0.0)
+	#descuento  = models.ForeignKey(descuento,blank=True,null=True)
+	descuento  = models.DecimalField(max_digits=6, decimal_places=2,null=True, default = 0.0)
+	saldo_utilizado = models.DecimalField(max_digits=6, decimal_places=2,null=True, default = 0.0)
+	subtotal_factura = models.DecimalField(max_digits=6, decimal_places=2,null=False, default = 0.0)
 	total_factura = models.DecimalField(max_digits=6, decimal_places=2,null=False, default = 0.0)
-	total_abonado = models.DecimalField(max_digits=6, decimal_places=2,null=False, default = 0.0)
+	total_abonado = models.DecimalField(max_digits=6, decimal_places=2,null=True, default = 0.0)
 	total_pendiente = models.DecimalField(max_digits=6, decimal_places=2,null=False, default = 0.0)
 	
 	fecha_apertura = models.DateField(auto_now_add=True, null=False)
@@ -40,6 +44,14 @@ class factura(models.Model):
 	
 	def __unicode__(self):
 		return '%s %s(%s)' % (self.cliente.nombre,self.fecha_apertura,self.total_factura) 
+		
+	
+	def save(self, *args, **kwargs):
+		total = self.subtotal_factura - self.descuento - self.total_abonado
+		self.total_pendiente = total
+		
+		super(factura, self).save(*args, **kwargs)
+	
 	
 class producto_factura(models.Model):
 	factura = models.ForeignKey(factura)
@@ -59,15 +71,18 @@ class producto_factura(models.Model):
 		if d:
 			d=d[0]
 			d.cantidad = d.cantidad - cantidad
-		d.save()
+			d.save()
 		
+		subtotal_actual = factura.subtotal_factura
 		total_actual = factura.total_factura
 		total_producto_factura = producto_precio.precio * cantidad
 		total = Decimal(str(total_actual)) + total_producto_factura - factura.total_abonado
 		
+		subtotal_actual = subtotal_actual + total_producto_factura
 		self.subtotal = total_producto_factura
 		factura.total_factura = total
 		factura.total_pendiente = total
+		factura.subtotal_factura = subtotal_actual
 		factura.save()
 		
 		super(producto_factura, self).save(*args, **kwargs)

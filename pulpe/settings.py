@@ -77,3 +77,20 @@ STATICFILES_DIRS = (
 	os.path.join(SITE_ROOT,'resources'),
 )
 STATIC_URL = '/resources/'
+
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'rolando.ardon299@gmail.com'
+EMAIL_HOST_PASSWORD = 'dwdrumming1'
+
+
+#EMAIL_BACKEND = 'webfaction.backends.EmailBackend'
+#EMAIL_USE_TLS = True
+#EMAIL_PORT = 25
+#EMAIL_USE_TLS = False
+#EMAIL_HOST = 'smtp.webfaction.com'
+#EMAIL_HOST_USER = 'support_websersace'
+#EMAIL_HOST_PASSWORD = 'dwdrumming'
+#DEFAULT_FROM_EMAIL = 'support.websersace@websersace.rolexardon.webfactional.com'
