@@ -96,11 +96,9 @@ def generar_factura(factura):
 	
 def mailing(to,subject,html_content):
 	try:
-<<<<<<< HEAD
 		msg = EmailMultiAlternatives(subject, 'Muchas Gracias' , settings.DEFAULT_FROM_EMAIL, [to])
-=======
-		msg = EmailMultiAlternatives(subject, 'Muchas Gracias' , settings.EMAIL_HOST_USER , [to])
->>>>>>> fa98660b45de57019fe6f40d7e8f076bce546715
+		#msg = EmailMultiAlternatives(subject, 'Muchas Gracias' , settings.EMAIL_HOST_USER , [to])
+
 		msg.attach_alternative(html_content, "text/html")
 		msg.send()
 		return True
