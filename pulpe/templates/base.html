@@ -1,0 +1,52 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <link rel="icon" href="{%static 'imgs/food.ico'%}">
+
+    <title>CSD FoodShop</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{%static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{%static 'css/carousel.css'%}" rel="stylesheet">
+	<!-- Custom styles for this template -->
+    <link href="{%static 'css/blog.css'%}" rel="stylesheet">
+	
+  </head>
+  <body>
+	<div class="blog-masthead">
+        <nav class="blog-nav">
+          <a class="blog-nav-item" href="#">CSD FoodShop</a>
+        </nav>
+    </div>
+	<div class="container">
+
+		{%block content%}
+		{%endblock%}
+		
+	</div>
+
+      <!-- FOOTER -->
+      <footer>
+        <p class="pull-right"><a href="#">Back to top</a></p>
+      </footer>
+    </div><!-- /.container -->
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+	<script src="{%static 'js/jquery-1.11.0.js'%}"></script>
+    <script src="{%static 'js/bootstrap.min.js'%}"></script>
+    <script src="{%static 'js/docs.min.js'%}"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="{%static 'js/ie10-viewport-bug-workaround.js'%}"></script>
+	
+	{%block scripts%}
+	{%endblock%}
+  </body>
+</html>

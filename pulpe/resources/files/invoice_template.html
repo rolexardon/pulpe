@@ -1,0 +1,108 @@
+<table style="font-size: 75%; table-layout: fixed; border-spacing: 2px; width: 36%;">
+    <tr>
+        <th style="color: #FFF; width: 40%; border-width: 1px;  text-align: center; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868;">Cliente</th>
+        <td style= "border-width: 1px; text-align: left; width: 60%; border-radius: 0.25em; border-style: solid; border-color: #989898;"> %cliente</td>
+    </tr>
+    <tr>
+        <th style="color: #FFF; width: 40%; border-width: 1px;  text-align: center; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868;">Factura #</th>
+        <td style= "border-width: 1px; text-align: left; width: 60%; border-radius: 0.25em; border-style: solid; border-color: #989898;"> %num_factura</td>
+    </tr>
+    <tr>
+        <th style="color: #FFF; width: 40%; border-width: 1px;  text-align: center; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868;">Fecha</th>
+        <td style= "border-width: 1px; text-align: left; width: 60%; border-radius: 0.25em; border-style: solid; border-color: #989898;"> %fecha</td>
+    </tr>
+    <tr>
+        <th style="color: #FFF; width: 40%; border-width: 1px;  text-align: center; border-radius: 0.25em; border-style: solid; background: #009933; border-color: #686868;">Total</th>
+        <td style= "border-width: 1px; text-align: left; width: 60%; border-radius: 0.25em; border-style: solid; border-color: #989898;"> Lps. %total</td>
+    </tr>
+		
+</table>
+<table style="font-size: 75%; table-layout: fixed; width: 100%; border-spacing: 2px;">
+    <thead>
+        <th style="font-weight: bold; color: #FFF; text-align: center; border-width: 1px; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868; width:30%;">Item</th>
+        <th style="font-weight: bold; color: #FFF; text-align: center; border-width: 1px; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868; width:30%;">Detalles</th>
+        <th style="font-weight: bold; color: #FFF; text-align: center; border-width: 1px; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868; width:20%;">Cantidad</th>
+        <th style="font-weight: bold; color: #FFF; text-align: center; border-width: 1px; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868; width:20%;">Precio</th>
+    </thead>
+    <tbody>
+        %contenido_factura
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="color: #FFF; width: 15%; border-width: 1px;  text-align: right; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868;">
+                Subtotal:
+            </td>
+            <td style= "border-width: 1px; text-align: left; width: 15%; border-radius: 0.25em; border-style: solid; border-color: #989898;">
+                %subtotal
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="color: #FFF; width: 15%; border-width: 1px;  text-align: right; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868;">
+                Descuento:
+            </td>
+            <td style= "border-width: 1px; text-align: left; width: 15%; border-radius: 0.25em; border-style: solid; border-color: #989898;">
+                %descuento
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="color: #FFF; width: 15%; border-width: 1px;  text-align: right; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868;">
+                Abonos:
+            </td>
+            <td style= "border-width: 1px; text-align: left; width: 15%; border-radius: 0.25em; border-style: solid; border-color: #989898;">
+                %abono
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="color: #FFF; width: 15%; border-width: 1px;  text-align: right; border-radius: 0.25em; border-style: solid; background: #989898; border-color: #686868;">
+                Saldo a Favor:
+            </td>
+            <td style= "border-width: 1px; text-align: left; width: 15%; border-radius: 0.25em; border-style: solid; border-color: #989898;">
+                %saldo
+            </td>
+        </tr>
+        <tr>
+            <td></td>
+            <td></td>
+            <td style="color: #FFF; width: 15%; border-width: 1px;  text-align: right; border-radius: 0.25em; border-style: solid; background: #009933; border-color: #686868;">
+                Total:
+            </td>
+            <td style= "border-width: 1px; text-align: left; width: 15%; border-radius: 0.25em; border-style: solid; border-color: #989898;">
+                %total
+            </td>
+        </tr>
+    </tbody>
+</table>
+<br>
+<br>
+<h3 style="color:#686868; border: none; border-width: 0 0 1px; margin: 0 0 1em; border-color: #999; border-bottom-style: solid; font: bold 100% sans-serif; letter-spacing: 0.5em; text-align: left;">Notas Adicionales</h3>
+<table style="font-size: 75%; table-layout: fixed;border-spacing: 2px; width: 50%;">
+    <th>Realice sus pagos en:</th>
+    <tr>
+        <th style="color: #FFF; width: 50%; border-width: 1px;  text-align: center; border-radius: 0.25em; border-style: solid; background: #C8C8C8; border-color: #686868;">BAC</th>
+        <td style= "border-width: 1px; text-align: left; width: 50%; border-radius: 0.25em; border-style: solid; border-color: #C8C8C8;"> 722258411</td>
+    </tr>
+    <tr>
+        <th style="color: #FFF; width: 50%; border-width: 1px;  text-align: center; border-radius: 0.25em; border-style: solid; background: #C8C8C8; border-color: #686868;">FICOHSA</th>
+        <td style= "border-width: 1px; text-align: left; width: 50%; border-radius: 0.25em; border-style: solid; border-color: #C8C8C8;"> 70-240-44775</td>
+    </tr>
+    <tr>
+        <th style="color: #FFF; width: 50%; border-width: 1px;  text-align: center; border-radius: 0.25em; border-style: solid; background: #C8C8C8; border-color: #686868;">OCCIDENTE</th>
+        <td style= "border-width: 1px; text-align: left; width: 50%; border-radius: 0.25em; border-style: solid; border-color: #C8C8C8;"> 21-401-150741-4</td>
+    </tr>
+    <tr>
+        <th style="color: #FFF; width: 40%; border-width: 1px;  text-align: center; border-radius: 0.25em; border-style: solid; background: #C8C8C8; border-color: #686868;">ATLANTIDA</th>
+        <td style= "border-width: 1px; text-align: left; width: 60%; border-radius: 0.25em; border-style: solid; border-color: #C8C8C8;"> 1203942303</td>
+    </tr>
+    <tr>
+        <th style="color: #FFF; width: 50%; border-width: 1px;  text-align: center; border-radius: 0.25em; border-style: solid; background: #C8C8C8; border-color: #686868;">TIGOMONEY</th>
+        <td style= "border-width: 1px; text-align: left; width: 50%; border-radius: 0.25em; border-style: solid; border-color: #C8C8C8;"> 97518919</td>
+    </tr>
+</table>
+    <p><h5 style="color:#FFCC00">No olvide notificar sus pagos!</h5></p>
+<p>%notas</p>
