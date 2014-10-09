@@ -13,6 +13,10 @@ SECRET_KEY = 'asccoo@3!v0pr6ek*2s@zuobha0iol6^w!r@86s41yj*x3s#gd'
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
+<<<<<<< HEAD
+#DEBUG = False
+=======
+>>>>>>> fa98660b45de57019fe6f40d7e8f076bce546715
 TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
@@ -27,7 +31,11 @@ INSTALLED_APPS = (
 	'clientes',
 	'inventario',
 	'facturas',
+<<<<<<< HEAD
+#	'south',
+=======
 	'south',
+>>>>>>> fa98660b45de57019fe6f40d7e8f076bce546715
 )
 MIDDLEWARE_CLASSES = (
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -52,9 +60,15 @@ DATABASES = {
 
 'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2', 
+<<<<<<< HEAD
+            'NAME': 'csdfs',
+            'USER': 'csdfsusr',
+            'PASSWORD': 'f33dingc$d',
+=======
             'NAME': 'csdfs_db',
             'USER': 'postgres',
             'PASSWORD': 'admin',
+>>>>>>> fa98660b45de57019fe6f40d7e8f076bce546715
             'HOST': 'localhost',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
             'PORT': '5432',                      # Set to empty string for default.
         }
@@ -72,6 +86,29 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.6/howto/static-files/
 
+<<<<<<< HEAD
+#STATICFILES_FINDERS =(
+#	'django.contrib.staticfiles.finders.FileSystemFinder',
+# 	'django.contrib.staticfiles.finders.AppDirectoriesFinder'
+#)
+
+STATICFILES_DIRS = (
+	os.path.join(BASE_DIR,'pulpe/resources'),
+)
+
+#STATIC_URL = '/resources/'
+
+STATIC_ROOT =  '/home/rolexardon/webapps/media_csdfs/'
+STATIC_URL = '/media_csdfs/'
+
+
+#EMAIL_USE_TLS = True
+#EMAIL_HOST = 'smtp.gmail.com'
+#EMAIL_PORT = 587
+#EMAIL_HOST_USER = 'rolando.ardon299@gmail.com'
+#EMAIL_HOST_PASSWORD = 'dwdrumming1'
+
+=======
 
 STATICFILES_DIRS = (
 	os.path.join(SITE_ROOT,'resources'),
@@ -86,11 +123,20 @@ EMAIL_HOST_USER = 'rolando.ardon299@gmail.com'
 EMAIL_HOST_PASSWORD = 'dwdrumming1'
 
 
+>>>>>>> fa98660b45de57019fe6f40d7e8f076bce546715
 #EMAIL_BACKEND = 'webfaction.backends.EmailBackend'
 #EMAIL_USE_TLS = True
 #EMAIL_PORT = 25
 #EMAIL_USE_TLS = False
+<<<<<<< HEAD
+
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST_USER = 'billing_csdfoodshop'
+EMAIL_HOST_PASSWORD = 'dwdrumming'
+DEFAULT_FROM_EMAIL = 'billing@csdfoodshop.rolexardon.webfactional.com'
+=======
 #EMAIL_HOST = 'smtp.webfaction.com'
 #EMAIL_HOST_USER = 'support_websersace'
 #EMAIL_HOST_PASSWORD = 'dwdrumming'
 #DEFAULT_FROM_EMAIL = 'support.websersace@websersace.rolexardon.webfactional.com'
+>>>>>>> fa98660b45de57019fe6f40d7e8f076bce546715
