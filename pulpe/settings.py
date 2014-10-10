@@ -53,13 +53,14 @@ DATABASES = {
 
 'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-            #'NAME': 'csdfs',
-            #'USER': 'csdfsusr',
-            #'PASSWORD': 'f33dingc$d',
+            'NAME': 'csdfs',
+            'USER': 'csdfsusr',
+            'PASSWORD': 'f33dingc$d',
 
-            'NAME': 'csdfs_db',
-            'USER': 'postgres',
-            'PASSWORD': 'admin',
+            #'NAME': 'csdfs_db',
+            #'USER': 'postgres',
+            #'PASSWORD': 'admin',
+			
 			'HOST': 'localhost',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
             'PORT': '5432',                      # Set to empty string for default.
         }
