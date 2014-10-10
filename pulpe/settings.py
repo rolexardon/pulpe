@@ -53,14 +53,14 @@ DATABASES = {
 
 'default': {
             'ENGINE': 'django.db.backends.postgresql_psycopg2', 
-            'NAME': 'csdfs',
-            'USER': 'csdfsusr',
-            'PASSWORD': 'f33dingc$d',
+            #'NAME': 'csdfs',
+            #'USER': 'csdfsusr',
+            #'PASSWORD': 'f33dingc$d',
 
-            #'NAME': 'csdfs_db',
-            #'USER': 'postgres',
-            #'PASSWORD': 'admin',
-	    'HOST': 'localhost',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
+            'NAME': 'csdfs_db',
+            'USER': 'postgres',
+            'PASSWORD': 'admin',
+			'HOST': 'localhost',                      # Empty for localhost through domain sockets or           '127.0.0.1' for localhost through TCP.
             'PORT': '5432',                      # Set to empty string for default.
         }
 }
@@ -90,14 +90,16 @@ STATIC_URL = '/media_csdfs/'
 #)
 #STATIC_URL = '/resources/'
 
+MY_DEFAULT_EMAIL = 'rolando.ardon299@gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'rolando.ardon299@gmail.com'
 EMAIL_HOST_PASSWORD = 'dwdrumming1'
 
-EMAIL_HOST = 'smtp.webfaction.com'
-EMAIL_HOST_USER = 'billing_csdfoodshop'
-EMAIL_HOST_PASSWORD = 'dwdrumming'
-DEFAULT_FROM_EMAIL = 'billing@csdfoodshop.rolexardon.webfactional.com'
+#MY_DEFAULT_EMAIL = 'billing@csdfoodshop.rolexardon.webfactional.com'
+#EMAIL_HOST = 'smtp.webfaction.com'
+#EMAIL_HOST_USER = 'billing_csdfoodshop'
+#EMAIL_HOST_PASSWORD = 'dwdrumming'
+#DEFAULT_FROM_EMAIL = 'billing@csdfoodshop.rolexardon.webfactional.com'
 

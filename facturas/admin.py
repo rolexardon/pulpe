@@ -8,10 +8,13 @@ class Producto_FacturaInline(admin.StackedInline):
 
 class FacturasAdmin(admin.ModelAdmin):
 	model = factura
-	exclude = ("fecha_apertura",'fecha_cierre',)
+	#exclude = ("fecha_apertura",'fecha_cierre',)
 	inlines = [
 		Producto_FacturaInline,
 		]
+	list_filter = ('enviada','estado','fecha_apertura','fecha_cierre',)
+	search_fields = ['cliente__nombre']
+	
 	actions = ['enviar_factura']
 	def enviar_factura(self, request, queryset):
 		for factura in queryset:

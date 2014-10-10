@@ -75,10 +75,13 @@ def generar_factura(factura):
 		linestring = linestring.replace('%descuento',str(factura.descuento))
 		
 		total = factura.total_factura
-		saldo_afavor = get_saldo(cl,total)
-		total = total - saldo_afavor
-		factura.saldo_utilizado = saldo_afavor
-		
+		if factura.enviada:
+			saldo_afavor = factura.saldo_utilizado
+			total = total - saldo_afavor
+		else:
+			saldo_afavor = get_saldo(cl,total)
+			total = total - saldo_afavor
+			factura.saldo_utilizado = saldo_afavor
 		
 		linestring = linestring.replace('%total',str(total))
 		linestring = linestring.replace('%saldo',str(saldo_afavor))
@@ -96,9 +99,7 @@ def generar_factura(factura):
 	
 def mailing(to,subject,html_content):
 	try:
-		msg = EmailMultiAlternatives(subject, 'Muchas Gracias' , settings.DEFAULT_FROM_EMAIL, [to])
-		#msg = EmailMultiAlternatives(subject, 'Muchas Gracias' , settings.EMAIL_HOST_USER , [to])
-
+		msg = EmailMultiAlternatives(subject, 'Muchas Gracias' , settings.MY_DEFAULT_EMAIL, [to])
 		msg.attach_alternative(html_content, "text/html")
 		msg.send()
 		return True
@@ -108,22 +109,27 @@ def mailing(to,subject,html_content):
 		
 		
 def get_saldo(cliente,total):
-	scliente = saldo_cliente.objects.filter(cliente=cliente)
-	if scliente:
-		scliente = scliente[0]
-		saldo= scliente.saldo
-		if saldo > 0:
-			if total <= saldo: 
-				scliente.saldo = saldo-total
-				return total
+	try:
+		scliente = saldo_cliente.objects.filter(cliente=cliente)
+		if scliente:
+			scliente = scliente[0]
+			saldo= scliente.saldo
+			if saldo > 0:
+				if total <= saldo: 
+					scliente.saldo = saldo-total
+					scliente.save()
+					return total
+				else:
+					scliente.saldo = 0
+					scliente.save()
+					return saldo
 			else:
-				saldo.saldo = 0
-				return saldo
+				return 0
 		else:
 			return 0
-	else:
+	except Exception,e:
+		print e
 		return 0
-	
 			
 		
 	

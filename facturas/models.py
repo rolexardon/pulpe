@@ -2,6 +2,7 @@ from django.db import models
 from clientes.models import cliente
 from inventario.models import producto_precio,disponibilidad
 from decimal import *
+import datetime
 
 STATUS_CHOICES = (
     (1, 'PENDIENTE'),
@@ -49,6 +50,11 @@ class factura(models.Model):
 	def save(self, *args, **kwargs):
 		total = self.subtotal_factura - self.descuento - self.total_abonado
 		self.total_pendiente = total
+		
+		if self.estado == 1:
+			self.fecha_cierre = None
+		if self.estado == 2:
+			self.fecha_cierre = datetime.datetime.now()
 		
 		super(factura, self).save(*args, **kwargs)
 	

@@ -11,3 +11,6 @@ class cliente(models.Model):
 class saldo_cliente(models.Model):
 	cliente = models.ForeignKey(cliente)
 	saldo = models.DecimalField(max_digits=6, decimal_places=2,null=False)
+	
+	def __unicode__(self):
+		return '%s | %s' % (self.cliente.nombre,self.saldo)
