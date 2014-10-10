@@ -89,17 +89,18 @@ STATIC_URL = '/media_csdfs/'
 #	os.path.join(SITE_ROOT,'resources'),
 #)
 #STATIC_URL = '/resources/'
-
+"""
 MY_DEFAULT_EMAIL = 'rolando.ardon299@gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'rolando.ardon299@gmail.com'
-EMAIL_HOST_PASSWORD = 'dwdrumming1'
+EMAIL_HOST_PASSWORD = ''
+"""
 
-#MY_DEFAULT_EMAIL = 'billing@csdfoodshop.rolexardon.webfactional.com'
-#EMAIL_HOST = 'smtp.webfaction.com'
-#EMAIL_HOST_USER = 'billing_csdfoodshop'
-#EMAIL_HOST_PASSWORD = 'dwdrumming'
-#DEFAULT_FROM_EMAIL = 'billing@csdfoodshop.rolexardon.webfactional.com'
+MY_DEFAULT_EMAIL = 'billing@csdfoodshop.rolexardon.webfactional.com'
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST_USER = 'billing_csdfoodshop'
+EMAIL_HOST_PASSWORD = 'dwdrumming'
+DEFAULT_FROM_EMAIL = 'billing@csdfoodshop.rolexardon.webfactional.com'
 
