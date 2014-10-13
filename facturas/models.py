@@ -51,6 +51,7 @@ class factura(models.Model):
 		total = self.subtotal_factura - self.descuento - self.total_abonado
 		self.total_pendiente = total
 		
+		
 		if self.estado == 1:
 			self.fecha_cierre = None
 		if self.estado == 2:
@@ -73,19 +74,39 @@ class producto_factura(models.Model):
 		producto_precio = self.producto_precio
 		cantidad = self.cantidad
 		
-		d = disponibilidad.objects.filter(producto=producto_precio.producto)
-		if d:
-			d=d[0]
-			d.cantidad = d.cantidad - cantidad
-			d.save()
-		
 		subtotal_actual = factura.subtotal_factura
 		total_actual = factura.total_factura
+		
+		pf = producto_factura.objects.filter(factura = factura,producto_precio=producto_precio)
+		if pf:
+			pf = pf[0]
+			cantidad_actual = pf.cantidad
+			nueva_cantidad = self.cantidad
+			
+			subtotal_actual = subtotal_actual - pf.subtotal
+			total_actual = total_actual - pf.subtotal
+			
+			d = disponibilidad.objects.filter(producto=producto_precio.producto)
+			if d:
+				d=d[0]
+				if cantidad_actual > nueva_cantidad:
+					d.cantidad = d.cantidad + (cantidad_actual - nueva_cantidad)
+				else:
+					d.cantidad = d.cantidad - (cantidad_actual - nueva_cantidad)
+				d.save()
+		else:
+			d = disponibilidad.objects.filter(producto=producto_precio.producto)
+			if d:
+				d=d[0]
+				d.cantidad = d.cantidad - cantidad
+				d.save()
+		
 		total_producto_factura = producto_precio.precio * cantidad
 		total = Decimal(str(total_actual)) + total_producto_factura - factura.total_abonado
 		
 		subtotal_actual = subtotal_actual + total_producto_factura
 		self.subtotal = total_producto_factura
+		
 		factura.total_factura = total
 		factura.total_pendiente = total
 		factura.subtotal_factura = subtotal_actual
