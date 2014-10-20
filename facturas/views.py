@@ -67,7 +67,7 @@ def generar_factura(factura):
 						'<td style= "border-width: 1px; text-align: left; width: 35%; border-radius: 0.25em; border-style: solid; border-color: #989898;">' + item.producto_precio.producto.detalles + '</td>' +
 						'<td style= "border-width: 1px; text-align: left; width: 15%; border-radius: 0.25em; border-style: solid; border-color: #989898;">' + str(item.cantidad) + '</td>' +
 						'<td style= "border-width: 1px; text-align: left; width: 15%; border-radius: 0.25em; border-style: solid; border-color: #989898;">' + str(item.producto_precio.precio) + '</td>' +
-					'</tr>')
+						'<td style= "border-width: 1px; text-align: left; width: 15%; border-radius: 0.25em; border-style: solid; border-color: #989898;">' + str(item.subtotal) + '</td></tr>')
 					
 		linestring = linestring.replace('%contenido_factura',contenido)
 		linestring = linestring.replace('%subtotal',str(factura.subtotal_factura))

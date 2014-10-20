@@ -16,6 +16,10 @@ PAYMENT_CHOICES = (
 	(5, 'OCCIDENTE'),
     (6, 'EFECTIVO'),
 )
+TIPO_DESC = (
+	(1, 'PORCENTAJE'),
+    (2, 'MONTO'),
+)
 
 class impuesto(models.Model):
 	identificador = models.CharField(max_length=4,null=False)
@@ -43,8 +47,11 @@ class factura(models.Model):
 	fecha_apertura = models.DateField(auto_now_add=True, null=False)
 	fecha_cierre = models.DateField(blank = True, null=True)
 	
+	class Meta:
+		ordering = ['-fecha_apertura','cliente__nombre']
+		
 	def __unicode__(self):
-		return '%s %s(%s)' % (self.cliente.nombre,self.fecha_apertura,self.total_factura) 
+		return '%s %s(Total: %s | Por Pagar: %s)' % (self.cliente.nombre,self.fecha_apertura,self.total_factura,self.total_pendiente) 
 		
 	
 	def save(self, *args, **kwargs):
@@ -63,7 +70,7 @@ class factura(models.Model):
 class producto_factura(models.Model):
 	factura = models.ForeignKey(factura)
 	producto_precio = models.ForeignKey(producto_precio)
-	cantidad = models.IntegerField(null=False)
+	cantidad = models.IntegerField(null=False,default=1)
 	subtotal = models.DecimalField(max_digits=6, decimal_places=2,null=False, default = 0.0)
 	
 	def __unicode__(self):

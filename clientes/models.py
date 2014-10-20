@@ -7,6 +7,9 @@ class cliente(models.Model):
 	
 	def __unicode__(self):
 		return '%s' % self.nombre
+		
+	class Meta:
+		ordering = ['nombre']
 	
 class saldo_cliente(models.Model):
 	cliente = models.ForeignKey(cliente)
@@ -14,3 +17,6 @@ class saldo_cliente(models.Model):
 	
 	def __unicode__(self):
 		return '%s | %s' % (self.cliente.nombre,self.saldo)
+		
+	class Meta:
+		ordering = ['cliente__nombre']

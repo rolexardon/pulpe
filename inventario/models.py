@@ -20,6 +20,9 @@ class producto(models.Model):
 	
 	def __unicode__(self):
 		return '%s' % (self.nombre) 
+	
+	class Meta:
+		ordering = ['nombre']
 
 class proveedor(models.Model):
 	nombre = models.CharField(max_length=250,null=False)
@@ -27,6 +30,9 @@ class proveedor(models.Model):
 	
 	def __unicode__(self):
 		return '%s' % (self.nombre) 
+		
+	class Meta:
+		ordering = ['nombre']
 	
 class producto_costo(models.Model):
 	producto = models.ForeignKey(producto)
@@ -38,9 +44,10 @@ class producto_costo(models.Model):
 	
 	class Meta:
 		unique_together = ('producto', 'proveedor','costo',)
+		ordering = ['activo','producto__nombre','-fecha_ingreso']
 		
 	def __unicode__(self):
-		return '[%s] %s | %s (%s)' % (self.activo, self.producto.nombre, self.costo,self.proveedor.nombre) 
+		return '%s | %s (%s) [Activo: %s]' % (self.producto.nombre, self.costo,self.proveedor.nombre,self.activo) 
 	
 class producto_precio(models.Model):
 	producto = models.ForeignKey(producto)
@@ -51,9 +58,10 @@ class producto_precio(models.Model):
 	
 	class Meta:
 		unique_together = ('producto', 'precio',)
+		ordering = ['activo','producto__nombre','-fecha_ingreso']
 	
 	def __unicode__(self):
-		return '[Activo: %s] %s | %s' % (self.activo, self.producto.nombre, self.precio) 
+		return '%s | %s [Activo: %s] ' % (self.producto.nombre, self.precio,self.activo) 
 		
 class disponibilidad(models.Model):
 	producto = models.ForeignKey(producto, unique=True)
