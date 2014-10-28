@@ -54,6 +54,7 @@ def generar_factura(factura):
 		i = datetime.datetime.now()
 		fecha = str(i.day) + "-" + str(i.month) + "-" + str(i.year)
 		cl = factura.cliente
+		descuento = factura.descuento
 		
 		linestring = linestring.replace('%fecha',fecha)
 		linestring = linestring.replace('%num_factura',str(factura.pk))
@@ -72,15 +73,15 @@ def generar_factura(factura):
 		linestring = linestring.replace('%contenido_factura',contenido)
 		linestring = linestring.replace('%subtotal',str(factura.subtotal_factura))
 		linestring = linestring.replace('%abono',str(factura.total_abonado))
-		linestring = linestring.replace('%descuento',str(factura.descuento))
+		linestring = linestring.replace('%descuento',str(descuento))
 		
 		total = factura.total_factura
 		if factura.enviada:
 			saldo_afavor = factura.saldo_utilizado
-			total = total - saldo_afavor
+			total = total - descuento - saldo_afavor
 		else:
 			saldo_afavor = get_saldo(cl,total)
-			total = total - saldo_afavor
+			total = total - descuento - saldo_afavor
 			factura.saldo_utilizado = saldo_afavor
 		
 		linestring = linestring.replace('%total',str(total))
