@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.conf import settings
 from facturas.models import producto_factura
-from clientes.models import saldo_cliente
+
 from xlutils.copy import copy
 from xlrd import open_workbook 
 import datetime, os
@@ -54,7 +54,6 @@ def generar_factura(factura):
 		i = datetime.datetime.now()
 		fecha = str(i.day) + "-" + str(i.month) + "-" + str(i.year)
 		cl = factura.cliente
-		descuento = factura.descuento
 		
 		linestring = linestring.replace('%fecha',fecha)
 		linestring = linestring.replace('%num_factura',str(factura.pk))
@@ -72,20 +71,11 @@ def generar_factura(factura):
 					
 		linestring = linestring.replace('%contenido_factura',contenido)
 		linestring = linestring.replace('%subtotal',str(factura.subtotal_factura))
+		linestring = linestring.replace('%cargos',str(factura.otros_cargos))
 		linestring = linestring.replace('%abono',str(factura.total_abonado))
-		linestring = linestring.replace('%descuento',str(descuento))
-		
-		total = factura.total_factura
-		if factura.enviada:
-			saldo_afavor = factura.saldo_utilizado
-			total = total - descuento - saldo_afavor
-		else:
-			saldo_afavor = get_saldo(cl,total)
-			total = total - descuento - saldo_afavor
-			factura.saldo_utilizado = saldo_afavor
-		
-		linestring = linestring.replace('%total',str(total))
-		linestring = linestring.replace('%saldo',str(saldo_afavor))
+		linestring = linestring.replace('%descuento',str(factura.descuento))
+		linestring = linestring.replace('%total',str(factura.total_pendiente))
+		linestring = linestring.replace('%saldo',str(factura.saldo_utilizado))
 		linestring = linestring.replace('%notas',factura.detalles)
 		
 		#send_mail('Factura de consumo, fecha: ' + fecha ,'',settings.EMAIL_HOST_USER,[cl.correo], auth_user=None, auth_password=None, connection=None, html_message=linestring)
@@ -109,28 +99,7 @@ def mailing(to,subject,html_content):
 		return False
 		
 		
-def get_saldo(cliente,total):
-	try:
-		scliente = saldo_cliente.objects.filter(cliente=cliente)
-		if scliente:
-			scliente = scliente[0]
-			saldo= scliente.saldo
-			if saldo > 0:
-				if total <= saldo: 
-					scliente.saldo = saldo-total
-					scliente.save()
-					return total
-				else:
-					scliente.saldo = 0
-					scliente.save()
-					return saldo
-			else:
-				return 0
-		else:
-			return 0
-	except Exception,e:
-		print e
-		return 0
+
 			
 		
 	

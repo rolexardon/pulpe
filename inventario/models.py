@@ -87,15 +87,27 @@ class producto_compra(models.Model):
 	def __unicode__(self):
 		return '[%s] %s' % (self.compra.fecha, self.producto_costo.producto.nombre)
 		
-	'''
+	
 	def delete(self, *args, **kwargs):
+		compra = self.compra
+		producto_costo = self.producto_costo
+		cantidad = self.cantidad
+		
+		total_actual = compra.total_compra
+		
 		d = disponibilidad.objects.filter(producto=producto_costo.producto)
 		if d:
 			d=d[0]
 			d.cantidad = d.cantidad - cantidad
-
-        super(producto_compra, self).delete(*args, **kwargs)
-	'''
+	
+		total_producto_compra = producto_costo.costo * cantidad
+		total = Decimal(str(total_actual)) - total_producto_compra
+		
+		d.save()
+		compra.total_compra = total
+		compra.save()
+		
+		super(producto_compra, self).delete(*args, **kwargs)
 
 		
 	def save(self, *args, **kwargs):
@@ -103,18 +115,36 @@ class producto_compra(models.Model):
 		producto_costo = self.producto_costo
 		cantidad = self.cantidad
 		
-		d = disponibilidad.objects.filter(producto=producto_costo.producto)
-		if d:
-			d=d[0]
-			d.cantidad = d.cantidad + cantidad
-		else:
-			d= disponibilidad(producto=producto_costo.producto,cantidad=cantidad)
-		d.save()
-		
 		total_actual = compra.total_compra
-		total_producto_compra = producto_costo.costo * cantidad
-		total = Decimal(str(total_actual)) + total_producto_compra
 		
+		pc = producto_compra.objects.filter(compra=compra,producto_costo = producto_costo)
+		if pc:
+			pc=pc[0]
+			d = disponibilidad.objects.get(producto=pc.producto_costo.producto)
+			cantidad_actual = pc.cantidad
+			diferencia = abs(cantidad - cantidad_actual)
+			
+			total_producto_compra = pc.producto_costo.costo * diferencia
+			
+			if cantidad_actual < cantidad:#se agregan productos
+				d.cantidad = d.cantidad + diferencia
+				total = Decimal(str(total_actual)) + total_producto_compra
+			if cantidad_actual > cantidad:#se restan
+				d.cantidad = d.cantidad - diferencia
+				total = Decimal(str(total_actual)) - total_producto_compra
+
+		else:
+			d = disponibilidad.objects.filter(producto=producto_costo.producto)
+			if d:
+				d=d[0]
+				d.cantidad = d.cantidad + cantidad
+			else:
+				d= disponibilidad(producto=producto_costo.producto,cantidad=cantidad)
+			
+			total_producto_compra = producto_costo.costo * cantidad
+			total = Decimal(str(total_actual)) + total_producto_compra
+			
+		d.save()
 		compra.total_compra = total
 		compra.save()
 		
